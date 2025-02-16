@@ -3,40 +3,128 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 		<style>
-			h1 {
-				text-align: center;
-			}
-
-			.container {
-				margin: 0 auto;
-				padding: 60px 20%;
-			}
-
-			figure {
-				text-align: center;
-			}
-
-			img {
-				display: inline-block;
-			}
-
+			/* Base styles */
 			body {
 				font-family: 'Inter', sans-serif;
+				line-height: 1.6;
+				color: #333;
+				background-color: #f9f9f9;
+			}
+		
+			.container {
+				margin: 0 auto;
+				padding: 40px 15%;
+				max-width: 1200px;
+				background-color: white;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+			}
+		
+			/* Typography */
+			h1 {
+				text-align: center;
+				color: #2c3e50;
+				margin-bottom: 1.5rem;
+				font-size: 2.2rem;
+			}
+		
+			h2 {
+				color: #2c3e50;
+				border-bottom: 2px solid #eee;
+				padding-bottom: 0.5rem;
+				margin-top: 2.5rem;
+			}
+		
+			h3 {
+				color: #34495e;
+				margin-top: 1.5rem;
+			}
+		
+			p {
+				margin-bottom: 1.2rem;
+			}
+		
+			/* Links */
+			a {
+				color: #3498db;
+				text-decoration: none;
+			}
+		
+			a:hover {
+				text-decoration: underline;
+			}
+		
+			/* Code */
+			code {
+				background-color: #f7f9fa;
+				padding: 2px 6px;
+				border-radius: 3px;
+				font-family: monospace;
+				color: #e74c3c;
+			}
+		
+			/* Images and figures */
+			figure {
+				text-align: center;
+				margin: 2rem 0;
+			}
+		
+			img {
+				max-width: 100%;
+				border-radius: 4px;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			}
+		
+			figcaption {
+				color: #666;
+				font-size: 0.9rem;
+				margin-top: 0.5rem;
+			}
+		
+			/* Tables */
+			table {
+				width: 100%;
+				text-align: center;
+				border-collapse: collapse;
+				margin: 1.5rem 0;
+			}
+		
+			th, td {
+				border: 1px solid #ddd;
+				padding: 12px;
+			}
+		
+			th {
+				background-color: #f5f6fa;
+				font-weight: 600;
+			}
+		
+			tr:nth-child(even) {
+				background-color: #f9f9f9;
+			}
+		
+			/* Lists */
+			ul {
+				padding-left: 1.5rem;
+				margin-bottom: 1.2rem;
+			}
+		
+			li {
+				margin-bottom: 0.5rem;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
-		<h1>CS184/284A Spring 2025 Homework 1 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+		<h1>CS284A Spring 2025 Homework 1 Write-Up</h1>
+		<div style="text-align: center;">Name: Jasper Liu</div>
 
 		<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		Link to webpage: <a href="https://cal-cs184-student.github.io/cs284a-hw-webpages-jasper/">cal-cs184-student.github.io/cs284a-hw-webpages-jasper/</a>
 		
 		<br>
 
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/cs284a-hw-webpages-jasper">github.com/cal-cs184-student/cs284a-hw-webpages-jasper</a>
 
 		<figure>
 			<img src="lion.jpg" alt="Lion" style="width:50%"/>
@@ -51,39 +139,202 @@
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>
+			In this task, I implemented the <code>rasterize_triangle</code> function in <code>rasterizer.cpp</code> to render single-color triangles. 
+			The goal was to correctly fill pixels inside a given frame using rasterization techniques while ensuring that the algorithm remains efficient.
+		</p>
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+		<h3>Algorithm Explanation</h3>
+		<p>
+			The triangle rasterization algorithm follows these steps:
+		</p>
+		<ul>
+			<li>First, compute the <b>bounding box</b> of the triangle, which is the smallest rectangle that fully contains the triangle.</li>
+			<li>Then, iterate over each pixel within this bounding box, checking whether the pixel's center (x + 0.5, y + 0.5) is inside the triangle.</li>
+			<li>To check if a pixel is inside the triangle, I used the <b>Point-in-Triangle Test</b>, which determines whether a point lies inside or outside based on the orientation of the triangle's edges.</li>
+			<li>If the pixel is inside the triangle, I call <code>fill_pixel()</code> to color it.</li>
+		  </ul>
+
+		<h3>Efficiency Justification</h3>
+		<p>
+		The algorithm is structured to be no worse than a naive approach that checks every pixel in the bounding box:
+		</p>
+		<ul>
+			<li>By restricting checks to the bounding box, we limit unnecessary computations outside the triangle.</li>
+			<li>Using the <b>edge function</b> eliminates the need for expensive floating-point division and ensures fast point-in-triangle checks.</li>
+		</ul>
+		<h3>Rendered Output</h3>
+		<p>
+		  Below is a screenshot of <code>basic/test4.svg</code> rendered using my implementation.
+		</p>
+		
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 			  <tr>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
+				<th>Default view</th>
+				<th>Pixel Inspector</th>
 			  </tr>
 			  <tr>
 				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="test4_default.png" width="400px"/>
 				</td>
 				<td style="text-align: center;">
-				  <img src="lion.jpg" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
+				  <img src="test4_pixel_inspector.png" width="400px"/>
 				</td>
 			  </tr>
 			</table>
 		</div>
+
+		<h3>Extra Credit: Optimizations</h3>
+		<p>
+			To enhance performance, I optimized the edge function calculations by using incremental updates. 
+			Instead of recomputing the edge functions for each pixel separately, I used the method that moving from one pixel to the next along a scanline results in predictable changes. 
+			By updating the edge function values incrementally, I reduced repeated computations.
+		</p>
+
+		<table>
+		<tr>
+			<th>Triangle</th>
+			<th>Basic Time (ms)</th>
+			<th>Optimized Time (ms)</th>
+			<th>Speedup Factor</th>
+		</tr>
+		<tr>
+			<td>Triangle 1</td>
+			<td>0.3504</td>
+			<td>0.0491</td>
+			<td>7.1x</td>
+		</tr>
+		<tr>
+			<td>Triangle 2</td>
+			<td>0.1093</td>
+			<td>0.0327</td>
+			<td>3.3x</td>
+		</tr>
+		<tr>
+			<td>Triangle 3</td>
+			<td>0.0664</td>
+			<td>0.0140</td>
+			<td>4.7x</td>
+		</tr>
+		<tr>
+			<td>Triangle 4</td>
+			<td>0.1815</td>
+			<td>0.0479</td>
+			<td>3.8x</td>
+		</tr>
+		<tr>
+			<td>Triangle 5</td>
+			<td>0.0198</td>
+			<td>0.0050</td>
+			<td>4.0x</td>
+		</tr>
+		</table>
+		  
+		  <p>
+			  On average, the optimized implementation is approximately <b>4x to 7x faster</b> than the basic version.
+		  </p>
 		
 		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h3>Overview of Supersampling</h3>
+		<p>
+			Supersampling is a technique used to reduce aliasing by taking multiple samples within each pixel and averaging them. 
+			Instead of evaluating a single color per pixel, we divide each pixel into multiple subpixels, compute color values for each, 
+			and then average them to produce the final pixel color. This smooths out jagged edges and improves image quality.
+		</p>
+
+		<h3>Modifications to the Rasterization Pipeline</h3>
+		<p>
+			To implement supersampling, I modified the rasterization pipeline in the following ways:
+		</p>
+		<ul>
+			<li>Instead of writing directly to the framebuffer, I created a sample_buffer that stores multiple samples per pixel. The buffer size is dynamically updated based on the sample rate.</li>
+			<li>In <code>rasterize_triangle()</code>, I sampled at <code>sqrt(sample_rate) x sqrt(sample_rate)</code> positions within each pixel instead of just at the center.</li>
+			<li>After rasterizing all primitives, I averaged the subpixel colors in <code>resolve_to_framebuffer()</code> to compute the final pixel color before writing to the framebuffer.</li>
+		</ul>
+		<h3>How Supersampling Reduces Aliasing</h3>
+		<p>
+			Aliasing occurs when high-frequency details are not sampled adequately, leading to jagged edges.
+			Supersampling mitigates this by capturing more detail at a higher resolution and averaging the results, creating smoother transitions along triangle edges.
+		</p>
+		<h3>Comparison of Different Sample Rates</h3>
+		<p>
+			Below are screenshots of <code>basic/test4.svg</code> taken with different sample rates: 1, 4, and 16. 
+			The Pixel Inspector is positioned over the red thin triangle corner to highlight the differences.
+		</p>
+		
+		<table>
+			<tr>
+				<th>Sample Rate 1 (No Antialiasing)</th>
+				<th>Sample Rate 4</th>
+				<th>Sample Rate 16</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="test4_sample1.png" alt="Sample Rate 1" width="300">
+				</td>
+				<td>
+					<img src="test4_sample4.png" alt="Sample Rate 4" width="300">
+				</td>
+				<td>
+					<img src="test4_sample16.png" alt="Sample Rate 16" width="300">
+				</td>
+			</tr>
+		</table>
+		
+		<p>
+			As the sample rate increases, the pixel colors blend more naturally along edges, reducing harsh transitions. 
+			This is because higher sample rates provide finer resolution during rasterization, leading to better color averaging in downsampling.
+		</p>
 
 		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h3>Implementing Transformations</h3>
+		<p>
+			In this task, I implemented the translate, scale, and rotate matrix transformations in <code>transforms.cpp</code>.  
+			These transformations allow us to manipulate 2D objects in an SVG scene using homogeneous coordinates.  
+		</p>
+		<h3>Screenshot of Robot</h3>
+		<table>
+			<tr>
+				<th>Default Robot</th>
+				<th>Custome Robot</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="robot.png" alt="robot" width="300">
+				</td>
+				<td>
+					<img src="my_robot.png" alt="my_robot" width="300">
+				</td>
+			</tr>
+		</table>
+		<h3>Extra Credit: Viewport Rotation</h3>
+		<p>
+			I added a feature to rotate the viewport using the Left (`←`) and Right (`→`) arrow keys.  
+			This works by applying a <b>rotation matrix</b> to the <b>SVG to NDC transformation</b> (`svg_to_ndc`).  
+		</p>
+		<p>
+			The rotation is implemented in <code>set_view()</code> by:
+		</p>
+		<ol>
+			<li>First, translating the viewport center to the origin.</li>
+			<li>Then, applying a rotation matrix based on <code>view_rotation</code>.</li>
+			<li>Finally, translating back to the original center.</li>
+		</ol>
+		<table>
+			<tr>
+				<th>Default Robot</th>
+				<th>Custome Robot</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="rotation_viewpoint1.png" width="300">
+				</td>
+				<td>
+					<img src="rotation_viewpoint2.png"  width="300">
+				</td>
+			</tr>
+		</table>
 
 		<h2>Task 4: Barycentric coordinates</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
