@@ -1,133 +1,141 @@
 <html>
-	<head>
-		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-		<style>
-			/* Base styles */
-			body {
-				font-family: 'Inter', sans-serif;
-				line-height: 1.6;
-				color: #333;
-				background-color: #f9f9f9;
-			}
-		
-			.container {
-				margin: 0 auto;
-				padding: 40px 15%;
-				max-width: 1200px;
-				background-color: white;
-				box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-			}
-		
-			/* Typography */
-			h1 {
-				text-align: center;
-				color: #2c3e50;
-				margin-bottom: 1.5rem;
-				font-size: 2.2rem;
-			}
-		
-			h2 {
-				color: #2c3e50;
-				border-bottom: 2px solid #eee;
-				padding-bottom: 0.5rem;
-				margin-top: 2.5rem;
-			}
-		
-			h3 {
-				color: #34495e;
-				margin-top: 1.5rem;
-			}
-		
-			p {
-				margin-bottom: 1.2rem;
-			}
-		
-			/* Links */
-			a {
-				color: #3498db;
-				text-decoration: none;
-			}
-		
-			a:hover {
-				text-decoration: underline;
-			}
-		
-			/* Code */
-			code {
-				background-color: #f7f9fa;
-				padding: 2px 6px;
-				border-radius: 3px;
-				font-family: monospace;
-				color: #e74c3c;
-			}
-		
-			/* Images and figures */
-			figure {
-				text-align: center;
-				margin: 2rem 0;
-			}
-		
-			img {
-				max-width: 100%;
-				border-radius: 4px;
-				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-			}
-		
-			figcaption {
-				color: #666;
-				font-size: 0.9rem;
-				margin-top: 0.5rem;
-			}
-		
-			/* Tables */
-			table {
-				width: 100%;
-				text-align: center;
-				border-collapse: collapse;
-				margin: 1.5rem 0;
-			}
-		
-			th, td {
-				border: 1px solid #ddd;
-				padding: 12px;
-			}
-		
-			th {
-				background-color: #f5f6fa;
-				font-weight: 600;
-			}
-		
-			tr:nth-child(even) {
-				background-color: #f9f9f9;
-			}
-		
-			/* Lists */
-			ul {
-				padding-left: 1.5rem;
-				margin-bottom: 1.2rem;
-			}
-		
-			li {
-				margin-bottom: 0.5rem;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
+
+<head>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+	<style>
+		/* Base styles */
+		body {
+			font-family: 'Inter', sans-serif;
+			line-height: 1.6;
+			color: #333;
+			background-color: #f9f9f9;
+		}
+
+		.container {
+			margin: 0 auto;
+			padding: 40px 15%;
+			max-width: 1200px;
+			background-color: white;
+			box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+		}
+
+		/* Typography */
+		h1 {
+			text-align: center;
+			color: #2c3e50;
+			margin-bottom: 1.5rem;
+			font-size: 2.2rem;
+		}
+
+		h2 {
+			color: #2c3e50;
+			border-bottom: 2px solid #eee;
+			padding-bottom: 0.5rem;
+			margin-top: 2.5rem;
+		}
+
+		h3 {
+			color: #34495e;
+			margin-top: 1.5rem;
+		}
+
+		p {
+			margin-bottom: 1.2rem;
+		}
+
+		/* Links */
+		a {
+			color: #3498db;
+			text-decoration: none;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		/* Code */
+		code {
+			background-color: #f7f9fa;
+			padding: 2px 6px;
+			border-radius: 3px;
+			font-family: monospace;
+			color: #e74c3c;
+		}
+
+		/* Images and figures */
+		figure {
+			text-align: center;
+			margin: 2rem 0;
+		}
+
+		img {
+			max-width: 100%;
+			border-radius: 4px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		figcaption {
+			color: #666;
+			font-size: 0.9rem;
+			margin-top: 0.5rem;
+		}
+
+		/* Tables */
+		table {
+			width: 100%;
+			text-align: center;
+			border-collapse: collapse;
+			margin: 1.5rem 0;
+		}
+
+		th,
+		td {
+			border: 1px solid #ddd;
+			padding: 12px;
+		}
+
+		th {
+			background-color: #f5f6fa;
+			font-weight: 600;
+		}
+
+		tr:nth-child(even) {
+			background-color: #f9f9f9;
+		}
+
+		/* Lists */
+		ul {
+			padding-left: 1.5rem;
+			margin-bottom: 1.2rem;
+		}
+
+		li {
+			margin-bottom: 0.5rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
 		<h1>CS284A Spring 2025 Homework 1 Write-Up</h1>
 		<div style="text-align: center;">Name: Jasper Liu</div>
 
 		<br>
 
-		Link to webpage: <a href="https://cal-cs184-student.github.io/cs284a-hw-webpages-jasper/">cal-cs184-student.github.io/cs284a-hw-webpages-jasper/</a>
-		
+		Link to webpage: <a
+			href="https://cal-cs184-student.github.io/cs284a-hw-webpages-jasper/">cal-cs184-student.github.io/cs284a-hw-webpages-jasper/</a>
+
 		<br>
 
-		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/cs284a-hw-webpages-jasper">github.com/cal-cs184-student/cs284a-hw-webpages-jasper</a>
+		Link to GitHub repository: <a
+			href="https://github.com/cal-cs184-student/cs284a-hw-webpages-jasper">github.com/cal-cs184-student/cs284a-hw-webpages-jasper</a>
 
 		<figure>
-			<img src="lion.jpg" alt="Lion" style="width:50%"/>
+			<img src="lion.jpg" alt="Lion" style="width:50%" />
 			<figcaption>You can add images with captions!</figcaption>
 		</figure>
 
@@ -136,12 +144,15 @@
 		-->
 
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole.
+		Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
 		<p>
-			In this task, I implemented the <code>rasterize_triangle</code> function in <code>rasterizer.cpp</code> to render single-color triangles. 
-			The goal was to correctly fill pixels inside a given frame using rasterization techniques while ensuring that the algorithm remains efficient.
+			In this task, I implemented the <code>rasterize_triangle</code> function in <code>rasterizer.cpp</code> to
+			render single-color triangles.
+			The goal was to correctly fill pixels inside a given frame using rasterization techniques while ensuring
+			that the algorithm remains efficient.
 		</p>
 
 		<h3>Algorithm Explanation</h3>
@@ -149,98 +160,107 @@
 			The triangle rasterization algorithm follows these steps:
 		</p>
 		<ul>
-			<li>First, compute the <b>bounding box</b> of the triangle, which is the smallest rectangle that fully contains the triangle.</li>
-			<li>Then, iterate over each pixel within this bounding box, checking whether the pixel's center (x + 0.5, y + 0.5) is inside the triangle.</li>
-			<li>To check if a pixel is inside the triangle, I used the <b>Point-in-Triangle Test</b>, which determines whether a point lies inside or outside based on the orientation of the triangle's edges.</li>
+			<li>First, compute the <b>bounding box</b> of the triangle, which is the smallest rectangle that fully
+				contains the triangle.</li>
+			<li>Then, iterate over each pixel within this bounding box, checking whether the pixel's center (x + 0.5, y
+				+ 0.5) is inside the triangle.</li>
+			<li>To check if a pixel is inside the triangle, I used the <b>Point-in-Triangle Test</b>, which determines
+				whether a point lies inside or outside based on the orientation of the triangle's edges.</li>
 			<li>If the pixel is inside the triangle, I call <code>fill_pixel()</code> to color it.</li>
-		  </ul>
+		</ul>
 
 		<h3>Efficiency Justification</h3>
 		<p>
-		The algorithm is structured to be no worse than a naive approach that checks every pixel in the bounding box:
+			The algorithm is structured to be no worse than a naive approach that checks every pixel in the bounding
+			box:
 		</p>
 		<ul>
 			<li>By restricting checks to the bounding box, we limit unnecessary computations outside the triangle.</li>
-			<li>Using the <b>edge function</b> eliminates the need for expensive floating-point division and ensures fast point-in-triangle checks.</li>
+			<li>Using the <b>edge function</b> eliminates the need for expensive floating-point division and ensures
+				fast point-in-triangle checks.</li>
 		</ul>
 		<h3>Rendered Output</h3>
 		<p>
-		  Below is a screenshot of <code>basic/test4.svg</code> rendered using my implementation.
+			Below is a screenshot of <code>basic/test4.svg</code> rendered using my implementation.
 		</p>
-		
+
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<th>Default view</th>
-				<th>Pixel Inspector</th>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="test4_default.png" width="400px"/>
-				</td>
-				<td style="text-align: center;">
-				  <img src="test4_pixel_inspector.png" width="400px"/>
-				</td>
-			  </tr>
+				<tr>
+					<th>Default view</th>
+					<th>Pixel Inspector</th>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="test4_default.png" width="400px" />
+					</td>
+					<td style="text-align: center;">
+						<img src="test4_pixel_inspector.png" width="400px" />
+					</td>
+				</tr>
 			</table>
 		</div>
 
 		<h3>Extra Credit: Optimizations</h3>
 		<p>
-			To enhance performance, I optimized the edge function calculations by using incremental updates. 
-			Instead of recomputing the edge functions for each pixel separately, I used the method that moving from one pixel to the next along a scanline results in predictable changes. 
+			To enhance performance, I optimized the edge function calculations by using incremental updates.
+			Instead of recomputing the edge functions for each pixel separately, I used the method that moving from one
+			pixel to the next along a scanline results in predictable changes.
 			By updating the edge function values incrementally, I reduced repeated computations.
 		</p>
 
 		<table>
-		<tr>
-			<th>Triangle</th>
-			<th>Basic Time (ms)</th>
-			<th>Optimized Time (ms)</th>
-			<th>Speedup Factor</th>
-		</tr>
-		<tr>
-			<td>Triangle 1</td>
-			<td>0.3504</td>
-			<td>0.0491</td>
-			<td>7.1x</td>
-		</tr>
-		<tr>
-			<td>Triangle 2</td>
-			<td>0.1093</td>
-			<td>0.0327</td>
-			<td>3.3x</td>
-		</tr>
-		<tr>
-			<td>Triangle 3</td>
-			<td>0.0664</td>
-			<td>0.0140</td>
-			<td>4.7x</td>
-		</tr>
-		<tr>
-			<td>Triangle 4</td>
-			<td>0.1815</td>
-			<td>0.0479</td>
-			<td>3.8x</td>
-		</tr>
-		<tr>
-			<td>Triangle 5</td>
-			<td>0.0198</td>
-			<td>0.0050</td>
-			<td>4.0x</td>
-		</tr>
+			<tr>
+				<th>Triangle</th>
+				<th>Basic Time (ms)</th>
+				<th>Optimized Time (ms)</th>
+				<th>Speedup Factor</th>
+			</tr>
+			<tr>
+				<td>Triangle 1</td>
+				<td>0.3504</td>
+				<td>0.0491</td>
+				<td>7.1x</td>
+			</tr>
+			<tr>
+				<td>Triangle 2</td>
+				<td>0.1093</td>
+				<td>0.0327</td>
+				<td>3.3x</td>
+			</tr>
+			<tr>
+				<td>Triangle 3</td>
+				<td>0.0664</td>
+				<td>0.0140</td>
+				<td>4.7x</td>
+			</tr>
+			<tr>
+				<td>Triangle 4</td>
+				<td>0.1815</td>
+				<td>0.0479</td>
+				<td>3.8x</td>
+			</tr>
+			<tr>
+				<td>Triangle 5</td>
+				<td>0.0198</td>
+				<td>0.0050</td>
+				<td>4.0x</td>
+			</tr>
 		</table>
-		  
-		  <p>
-			  On average, the optimized implementation is approximately <b>4x to 7x faster</b> than the basic version.
-		  </p>
-		
+
+		<p>
+			On average, the optimized implementation is approximately <b>4x to 7x faster</b> than the basic version.
+		</p>
+
 		<h2>Task 2: Antialiasing by Supersampling</h2>
 		<h3>Overview of Supersampling</h3>
 		<p>
-			Supersampling is a technique used to reduce aliasing by taking multiple samples within each pixel and averaging them. 
-			Instead of evaluating a single color per pixel, we divide each pixel into multiple subpixels, compute color values for each, 
-			and then average them to produce the final pixel color. This smooths out jagged edges and improves image quality.
+			Supersampling is a technique used to reduce aliasing by taking multiple samples within each pixel and
+			averaging them.
+			Instead of evaluating a single color per pixel, we divide each pixel into multiple subpixels, compute color
+			values for each,
+			and then average them to produce the final pixel color. This smooths out jagged edges and improves image
+			quality.
 		</p>
 
 		<h3>Modifications to the Rasterization Pipeline</h3>
@@ -248,21 +268,27 @@
 			To implement supersampling, I modified the rasterization pipeline in the following ways:
 		</p>
 		<ul>
-			<li>Instead of writing directly to the framebuffer, I created a sample_buffer that stores multiple samples per pixel. The buffer size is dynamically updated based on the sample rate.</li>
-			<li>In <code>rasterize_triangle()</code>, I sampled at <code>sqrt(sample_rate) x sqrt(sample_rate)</code> positions within each pixel instead of just at the center.</li>
-			<li>After rasterizing all primitives, I averaged the subpixel colors in <code>resolve_to_framebuffer()</code> to compute the final pixel color before writing to the framebuffer.</li>
+			<li>Instead of writing directly to the framebuffer, I created a sample_buffer that stores multiple samples
+				per pixel. The buffer size is dynamically updated based on the sample rate.</li>
+			<li>In <code>rasterize_triangle()</code>, I sampled at <code>sqrt(sample_rate) x sqrt(sample_rate)</code>
+				positions within each pixel instead of just at the center.</li>
+			<li>After rasterizing all primitives, I averaged the subpixel colors in
+				<code>resolve_to_framebuffer()</code> to compute the final pixel color before writing to the
+				framebuffer.
+			</li>
 		</ul>
 		<h3>How Supersampling Reduces Aliasing</h3>
 		<p>
 			Aliasing occurs when high-frequency details are not sampled adequately, leading to jagged edges.
-			Supersampling mitigates this by capturing more detail at a higher resolution and averaging the results, creating smoother transitions along triangle edges.
+			Supersampling mitigates this by capturing more detail at a higher resolution and averaging the results,
+			creating smoother transitions along triangle edges.
 		</p>
 		<h3>Comparison of Different Sample Rates</h3>
 		<p>
-			Below are screenshots of <code>basic/test4.svg</code> taken with different sample rates: 1, 4, and 16. 
+			Below are screenshots of <code>basic/test4.svg</code> taken with different sample rates: 1, 4, and 16.
 			The Pixel Inspector is positioned over the red thin triangle corner to highlight the differences.
 		</p>
-		
+
 		<table>
 			<tr>
 				<th>Sample Rate 1 (No Antialiasing)</th>
@@ -281,17 +307,19 @@
 				</td>
 			</tr>
 		</table>
-		
+
 		<p>
-			As the sample rate increases, the pixel colors blend more naturally along edges, reducing harsh transitions. 
-			This is because higher sample rates provide finer resolution during rasterization, leading to better color averaging in downsampling.
+			As the sample rate increases, the pixel colors blend more naturally along edges, reducing harsh transitions.
+			This is because higher sample rates provide finer resolution during rasterization, leading to better color
+			averaging in downsampling.
 		</p>
 
 		<h2>Task 3: Transforms</h2>
 		<h3>Implementing Transformations</h3>
 		<p>
-			In this task, I implemented the translate, scale, and rotate matrix transformations in <code>transforms.cpp</code>.  
-			These transformations allow us to manipulate 2D objects in an SVG scene using homogeneous coordinates.  
+			In this task, I implemented the translate, scale, and rotate matrix transformations in
+			<code>transforms.cpp</code>.
+			These transformations allow us to manipulate 2D objects in an SVG scene using homogeneous coordinates.
 		</p>
 		<h3>Screenshot of Robot</h3>
 		<table>
@@ -310,8 +338,8 @@
 		</table>
 		<h3>Extra Credit: Viewport Rotation</h3>
 		<p>
-			I added a feature to rotate the viewport using the Left (`←`) and Right (`→`) arrow keys.  
-			This works by applying a <b>rotation matrix</b> to the <b>SVG to NDC transformation</b> (`svg_to_ndc`).  
+			I added a feature to rotate the viewport using the Left (`←`) and Right (`→`) arrow keys.
+			This works by applying a <b>rotation matrix</b> to the <b>SVG to NDC transformation</b> (`svg_to_ndc`).
 		</p>
 		<p>
 			The rotation is implemented in <code>set_view()</code> by:
@@ -331,33 +359,118 @@
 					<img src="rotation_viewpoint1.png" width="300">
 				</td>
 				<td>
-					<img src="rotation_viewpoint2.png"  width="300">
+					<img src="rotation_viewpoint2.png" width="300">
 				</td>
 			</tr>
 		</table>
 
 		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h3>Understanding Barycentric Coordinates</h3>
+		<p>
+			Barycentric coordinates describe a way to locate a point inside a triangle by using three numbers (α, β, γ)
+			that act like weights for the triangle’s corners.
+			Each number shows how much influence a particular corner has on the point’s position.
+			The key rule is that these three weights always add up to 1, making it easy to understand how the point is
+			placed within the triangle.
+		</p>
+
+		<p>
+			If a point is closer to a vertex, that vertex has a higher weight in the interpolation.
+			This allows smooth transitions between vertex attributes, like color or texture coordinates.
+		</p>
+
+		<p>
+			Below is an illustration showing how the weights change inside a triangle:
+		</p>
+
+		<img src="colored_triangle.png" alt="Barycentric Coordinates Diagram" width="400">
+
+		<h3>Screenshot of test7.svg</h3>
+		<p>Below is the output of <code>svg/basic/test7.svg</code> with sample rate 1:</p>
+
+		<img src="test7.png" alt="test7.svg Screenshot" width="400">
 
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h3>Pixel Sampling and Texture Mapping</h3>
+		<p>
+			Pixel sampling is the process of determining a color for a pixel based on a texture image. Instead of
+			assigning colors directly to pixels, we use texture coordinates (u, v) mapped to a texture. We need to fetch
+			the appropriate color from the texture image, as textures are often smaller or larger than the actual object
+			being rendered.
+
+			In this implementation, each triangle vertex has a texture coordinate, which is interpolated across the
+			triangle using barycentric interpolation. For each pixel inside the triangle, the interpolated (u, v) is
+			used to sample the texture. The sampling method determines how the texture image is accessed and how colors
+			are retrieved.
+		</p>
+
+		<h3>Nearest vs. Bilinear Sampling</h3>
+		<p>
+			Nearest-neighbor sampling selects the color of the texel closest to the given (u, v) coordinate. This is
+			simple and fast but often results in blocky artifacts, especially when enlarging a texture.
+		</p>
+		<p>
+			Bilinear sampling, on the other hand, considers the four texels surrounding the (u, v) coordinate and
+			performs a weighted average. This results in smoother transitions between texels, reducing blocky artifacts
+			and providing a more visually appealing result.
+		</p>
+		<h3>Comparison of Sampling Methods</h3>
+		<table>
+			<tr>
+				<td>Nearest Sampling (1 sample per pixel)</td>
+				<td>Nearest Sampling (16 samples per pixel)</td>
+			</tr>
+			<tr>
+				<td><img src="nearest_1spp.png" width="400"></td>
+				<td><img src="nearest_16spp.png" width="400"></td>
+			</tr>
+			<tr>
+				<td>Bilinear Sampling (1 sample per pixel)</td>
+				<td>Bilinear Sampling (16 samples per pixel)</td>
+			</tr>
+			<tr>
+				<td><img src="bilinear_1spp.png" width="400"></td>
+				<td><img src="bilinear_16spp.png" width="400"></td>
+			</tr>
+		</table>
+
+		<h3>Observations and Differences</h3>
+		<p>
+			With a single sample per pixel, nearest sampling produces sharp texel edges, while bilinear sampling smooths
+			transitions between texels. When increasing the sampling rate to 16 samples per pixel, nearest sampling
+			improves slightly but still shows visible aliasing, while bilinear sampling produces the smoother result.
+		</p>
+		<p>
+			The difference between the two methods is most noticeable when rendering textures at low resolutions or when
+			the texture is stretched across a surface. Nearest sampling struggles in these cases, leading to pixelation,
+			whereas bilinear sampling reduces harsh edges by blending colors.
+		</p>
 
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+		laborum.
 
 		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+		laborum.
 
 		<h2>Additional Notes (please remove)</h2>
 		<ul>
 			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
+			<li>If you'd like to add math equations,
 				<ul>
 					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
 					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
 				</ul>
 			</li>
 		</ul>
-		</div>
-	</body>
+	</div>
+</body>
+
 </html>
