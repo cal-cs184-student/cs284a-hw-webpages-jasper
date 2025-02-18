@@ -135,17 +135,18 @@
 			href="https://github.com/cal-cs184-student/cs284a-hw-webpages-jasper">github.com/cal-cs184-student/cs284a-hw-webpages-jasper</a>
 
 		<figure>
-			<img src="lion.jpg" alt="Lion" style="width:50%" />
-			<figcaption>You can add images with captions!</figcaption>
+			<img src="Berkeley-Sunset.jpg" alt="Berkeley-sunset" style="width:80%" />
 		</figure>
 
-		<!--
-		We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
-
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole.
-		Share your thoughts on what interesting things you've learned from completing the homework.
+		<p>
+			This project explores the fundamentals of rasterization. We start by drawing basic triangles
+			efficiently, then step up to antialiasing by supersampling to smooth out jagged edges. We also learn about
+			applying transforms (like translate, scale, and rotate) and use barycentric coordinates to interpolate
+			attributes across triangles. Finally, we dive into texture mapping using different pixel sampling (nearest
+			vs. bilinear) and mipmap-based level sampling (L_ZERO, L_NEAREST, L_LINEAR). Through these tasks, we see how
+			each choice impacts performance, memory usage, and overall image quality.
+		</p>
 
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
 		<p>
@@ -436,40 +437,112 @@
 
 		<h3>Observations and Differences</h3>
 		<p>
-			With a single sample per pixel, nearest sampling produces sharp texel edges, while bilinear sampling smooths
-			transitions between texels. When increasing the sampling rate to 16 samples per pixel, nearest sampling
-			improves slightly but still shows visible aliasing, while bilinear sampling produces the smoother result.
+			When we use <b>nearest sampling</b> with just one sample per pixel, we often see crisp but sometimes jagged
+			edges around individual texels. Increasing the sample rate to 16 sub-samples per pixel does help a bit, but
+			it can still leave noticeable aliasing in areas where the texture is zoomed in.
 		</p>
 		<p>
-			The difference between the two methods is most noticeable when rendering textures at low resolutions or when
-			the texture is stretched across a surface. Nearest sampling struggles in these cases, leading to pixelation,
-			whereas bilinear sampling reduces harsh edges by blending colors.
+			Meanwhile, <b>bilinear sampling</b> blends neighboring texels, which softens harsh boundaries. Even at one
+			sample per pixel, bilinear filtering already looks smoother than nearest sampling in many spots. And if we
+			combine bilinear filtering with a higher sample rate like 16 sub-samples per pixel, we usually get an even
+			cleaner result with fewer jagged edges.
+		</p>
+		<p>
+			The contrast between nearest and bilinear sampling is most apparent when the texture is low-resolution or
+			stretched significantly. Nearest sampling can produce blocky patches and pixelation, whereas bilinear
+			sampling tends to create more natural-looking transitions by averaging texel colors.
 		</p>
 
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
+		<p>
+			Level sampling involves automatically choosing the correct mipmap for the texture. When viewing a texture
+			from far away, a lower-resolution version (higher mipmap level) can make the image smoother and faster to
+			render, because it reduces unintended aliasing.
+		</p>
 
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-		magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-		pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-		laborum.
-
-		<h2>Additional Notes (please remove)</h2>
+		<p>
+			I implemented three modes for level selection:
 		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations,
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
+			<li><b>L_ZERO:</b> Always sample from the base level (the original, full-resolution texture). This is
+				fast but can look too detailed and aliased when the object is far away.
+			</li>
+			<li><b>L_NEAREST:</b> Compute which mipmap level is best and pick the closest. This is simpler but can
+				have small jumps when the chosen level changes.
+			</li>
+			<li><b>L_LINEAR:</b> Compute a fractional level and blend between the two nearest mip levels, creating
+				smoother transitions as the camera zooms in or out.
 			</li>
 		</ul>
+		Either way, once I pick a mip level, I still use either nearest or bilinear pixel sampling (so there's also
+		a combination like "trilinear" if we do L_LINEAR plus P_LINEAR).
+		</p>
+
+		<p>
+			This helps reduce flickering and shimmering in textures when we zoom out, because the texture details
+			aren't oversampled. Zooming in also works better because the correct higher-resolution or blended level is
+			chosen.
+		</p>
+
+		<h3>Tradeoffs: Speed, Memory, and Antialiasing</h3>
+		<p>
+			When we have many mip levels, we use more memory overall. However, we save time because sampling from a
+			smaller mip when we're zoomed out is faster. Also, it looks better because there is less aliasing or
+			"moire" artifacts. But if we only used the base level (L_ZERO), we don’t store any extra mipmaps, so
+			we 'd save memory but get more aliasing. So there's a give-and-take among speed, memory usage, and image
+			quality.
+		</p>
+
+		<h3>Examples of Different Level and Pixel Sampling Methods</h3>
+		<p>
+			Having four combos is fun to compare:
+		</p>
+
+		<table>
+			<tr>
+				<th>L_ZERO + P_NEAREST</th>
+				<th>L_ZERO + P_LINEAR</th>
+			</tr>
+			<tr>
+				<td><img src="lz_pn.png" alt="L_ZERO, P_NEAREST" width="400"></td>
+				<td><img src="lz_pl.png" alt="L_ZERO, P_LINEAR" width="400"></td>
+			</tr>
+			<tr>
+				<th>L_NEAREST + P_NEAREST</th>
+				<th>L_NEAREST + P_LINEAR</th>
+			</tr>
+			<tr>
+				<td><img src="ln_pn.png" alt="L_NEAREST, P_NEAREST" width="400"></td>
+				<td><img src="ln_pl.png" alt="L_NEAREST, P_LINEAR" width="400"></td>
+			</tr>
+		</table>
+		<p>
+			When we use <b>L_ZERO</b>, we ignore our mipmaps and always fetch from the highest-resolution texture. That
+			can look okay if you're close, but when you zoom out, you often see flickering because the
+			details are too high-res for the screen pixels.
+		</p>
+
+		<ul>
+			<li><b>P_NEAREST</b> on top of that means we pick just one texel closest to our (u,v) coordinate. So this
+				tends to look aliasing.</li>
+			<li><b>P_LINEAR</b> (bilinear) at least blends nearby texels, so it helps reduce some of that blockiness.
+			</li>
+		</ul>
+
+		<p>
+			<b>L_NEAREST</b> means we use the mipmap level that's closest to our needed resolution. That already
+			cuts down on high-frequency detail that might cause flicker, because we're sampling from a texture that
+			better matches the size of the shape on screen.
+		</p>
+
+		<ul>
+			<li><b>P_NEAREST</b> still picks just one texel in that chosen mip level. You can still get blocky edges and
+				aliasing, because at each lookup, we pick the nearest texel in that mip level.</li>
+			<li><b>P_LINEAR</b> again paints a smoother transition, because we average together the four nearest texels
+				in that mip level, making edges appear softer and less blocky.</li>
+		</ul>
+
+
+
 	</div>
 </body>
 
