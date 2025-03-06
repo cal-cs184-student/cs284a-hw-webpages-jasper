@@ -273,8 +273,39 @@
 		
 		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
-		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h3>Part 3: Area-weighted Vertex Normals</h3>
+		<p>
+			In this part, I implemented area-weighted vertex normals to improve the visual quality of 3D models through Phong shading. This technique creates smoother-looking surfaces by averaging the normals of adjacent faces, weighted by their areas.
+		</p>
+		
+		<h3>Implementation Approach</h3>
+		<p>
+			To implement the area-weighted vertex normals in the <code>Vertex::normal()</code> function, I used the half-edge data structure to iterate through all faces adjacent to a vertex. For each neighboring face, I calculated its normal and area, then accumulated these area-weighted normals into a sum. Starting from the half-edge of the vertex, I traversed around the vertex using <code>h->twin()->next()</code> operations until returning to the starting edge. This allowed me to visit every face connected to the vertex. For each non-boundary face, I computed its area using cross products of edge vectors and weighted the face normal by this area before adding it to the accumulated normal. Finally, I normalized the result to get a unit normal vector that points outward from the surface.
+		</p>
+		
+		<h3>Visual Comparison: Flat Shading vs. Phong Shading</h3>
+		<p>
+			Below are screenshots comparing the teapot model (dae/teapot.dae) with and without vertex normals:
+		</p>
+		
+		<table>
+			<tr>
+				<th>Default Flat Shading</th>
+				<th>Phong Shading with Vertex Normals</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="teapot_flat.png" alt="Teapot with Flat Shading" width="400px"/>
+				</td>
+				<td>
+					<img src="teapot_phong.png" alt="Teapot with Phong Shading" width="400px"/>
+				</td>
+			</tr>
+		</table>
+		
+		<p>
+			As shown in the comparison, Phong shading significantly improves the visual quality of the teapot model. When using Phong shading, the lighting smoothly varies across the surface, creating a much more realistic representation of the curved teapot.
+		</p>
 
 		<h3>Part 4: Edge flip</h3>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
