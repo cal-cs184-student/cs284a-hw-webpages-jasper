@@ -3,40 +3,134 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 		<style>
-			h1 {
-				text-align: center;
-			}
-
-			.container {
-				margin: 0 auto;
-				padding: 60px 20%;
-			}
-
-			figure {
-				text-align: center;
-			}
-
-			img {
-				display: inline-block;
-			}
-
+			/* Base styles */
 			body {
 				font-family: 'Inter', sans-serif;
+				line-height: 1.6;
+				color: #333;
+				background-color: #f9f9f9;
+			}
+	
+			.container {
+				margin: 0 auto;
+				padding: 40px 15%;
+				max-width: 1200px;
+				background-color: white;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+			}
+	
+			/* Typography */
+			h1 {
+				text-align: center;
+				color: #2c3e50;
+				margin-bottom: 1.5rem;
+				font-size: 2.2rem;
+			}
+	
+			h2 {
+				color: #2c3e50;
+				border-bottom: 2px solid #eee;
+				padding-bottom: 0.5rem;
+				margin-top: 2.5rem;
+			}
+	
+			h3 {
+				color: #34495e;
+				margin-top: 1.5rem;
+			}
+	
+			p {
+				margin-bottom: 1.2rem;
+			}
+	
+			/* Links */
+			a {
+				color: #3498db;
+				text-decoration: none;
+			}
+	
+			a:hover {
+				text-decoration: underline;
+			}
+	
+			/* Code */
+			code {
+				background-color: #f7f9fa;
+				padding: 2px 6px;
+				border-radius: 3px;
+				font-family: monospace;
+				color: #e74c3c;
+			}
+	
+			/* Images and figures */
+			figure {
+				text-align: center;
+				margin: 2rem 0;
+			}
+	
+			img {
+				max-width: 100%;
+				border-radius: 4px;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+	
+			figcaption {
+				color: #666;
+				font-size: 0.9rem;
+				margin-top: 0.5rem;
+			}
+	
+			/* Tables */
+			table {
+				width: 100%;
+				text-align: center;
+				border-collapse: collapse;
+				margin: 1.5rem 0;
+			}
+	
+			th,
+			td {
+				border: 1px solid #ddd;
+				padding: 12px;
+			}
+	
+			th {
+				background-color: #f5f6fa;
+				font-weight: 600;
+			}
+	
+			tr:nth-child(even) {
+				background-color: #f9f9f9;
+			}
+	
+			/* Lists */
+			ul {
+				padding-left: 1.5rem;
+				margin-bottom: 1.2rem;
+			}
+	
+			li {
+				margin-bottom: 0.5rem;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
 		<h1>CS184/284A Spring 2025 Homework 2 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+		<div style="text-align: center;">Names: Jasper Liu</div>
 
 		<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+		Link to webpage: <a
+			href="https://cal-cs184-student.github.io/cs284a-hw-webpages-jasper/">cal-cs184-student.github.io/cs284a-hw-webpages-jasper/</a>
 
 		<br>
-		
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+
+		Link to GitHub repository: <a
+			href="https://github.com/cal-cs184-student/cs284a-hw-webpages-jasper">github.com/cal-cs184-student/cs284a-hw-webpages-jasper</a>
 
 		<figure>
 			<img src="teapot.png" alt="Teapot" style="width:50%"/>
@@ -48,38 +142,103 @@
 		-->
 
 		<h2>Overview</h2>
+		NEED TO BE Modified
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
-		<h3>Part 1: Bezier curves with 1D de Casteljau subdivision</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+		<h3>Part 1: Bezier Curves with 1D de Casteljau Subdivision</h3>
+		<p>
+			In this part, I implemented Bezier curve evaluation using de Casteljau's algorithm. This algorithm provides a geometric way to evaluate points on a Bezier curve by recursively performing linear interpolations between control points.
+		</p>
+		
+		<h3>Algorithm Explanation</h3>
+		<p>
+			De Casteljau's algorithm is an elegant recursive method for evaluating Bezier curves at a specific parameter value <code>t</code> (between 0 and 1). The algorithm works as follows:
+		</p>
+		<ul>
+			<li>Start with a set of <code>n</code> control points that define the Bezier curve.</li>
+			<li>For each adjacent pair of points, perform linear interpolation using the formula:
+				<code>p'<sub>i</sub> = (1-t) * p<sub>i</sub> + t * p<sub>i+1</sub></code></li>
+			<li>This creates <code>n-1</code> new intermediate points.</li>
+			<li>Repeat this process recursively on the new set of points until only one point remains.</li>
+			<li>The final point lies on the Bezier curve at parameter <code>t</code>.</li>
+		</ul>
+		
+		<figure>
+			<img src="decasteljau_lecture.png" alt="De Casteljau Algorithm Illustration" style="width:80%"/>
+			<figcaption>Illustration of the de Casteljau algorithm from CS284A lecture materials</figcaption>
+		</figure>
+		
+		<h3>Implementation Details</h3>
+		<p>
+			I implemented this algorithm in the <code>BezierCurve::evaluateStep(...)</code> function. For each step of the algorithm:
+		</p>
+		<ul>
+			<li>The function takes the current set of control points as input.</li>
+			<li>It creates a new vector to store the interpolated points for the next level.</li>
+			<li>For each pair of adjacent control points, it calculates the linear interpolation based on parameter <code>t</code>.</li>
+			<li>The interpolated points are added to the new vector, which is then returned.</li>
+			<li>Each call performs just one level of subdivision in the algorithm.</li>
+		</ul>
+		
+		<h3>Custom Bezier Curve Evaluation</h3>
+		<p>
+			Below are screenshots showing the step-by-step evaluation of a custom Bezier curve with 6 control points that I created:
+		</p>
+		
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="teapot.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="bezier_step1.png" width="400px"/>
+						<figcaption>Step 1: Original 6 control points</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="bezier_step2.png" width="400px"/>
+						<figcaption>Step 2: First level of subdivision (5 points)</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="bezier_step3.png" width="400px"/>
+						<figcaption>Step 3: Second level of subdivision (4 points)</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="bezier_step4.png" width="400px"/>
+						<figcaption>Step 4: Third level of subdivision (3 points)</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="bezier_step5.png" width="400px"/>
+						<figcaption>Step 5: Fourth level of subdivision (2 points)</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="bezier_step6.png" width="400px"/>
+						<figcaption>Step 6: Final point on the Bezier curve at parameter t</figcaption>
+					</td>
+				</tr>
 			</table>
 		</div>
+		
+		<p>
+			The sequence of images above demonstrates how de Casteljau's algorithm progressively refines the control points through linear interpolation until arriving at a single point on the curve. Each step reduces the number of points by one, with the final point being the exact position on the Bezier curve at the given parameter value <code>t</code>.
+		</p>
+		
+		<h3>Modified Bezier Curve</h3>
+		<p>
+			Here's a screenshot of a modified version of the Bezier curve with adjusted control points and a different parameter value:
+		</p>
+		
+		<figure>
+			<img src="bezier_modified.png" alt="Modified Bezier Curve" style="width:80%"/>
+			<figcaption>Modified Bezier curve with adjusted control points and parameter t</figcaption>
+		</figure>
+		
+		<p>
+			By moving the control points and changing the parameter <code>t</code> (via mouse scrolling), I can create different curve shapes and evaluate the curve at different positions. This demonstrates the flexibility of Bezier curves in modeling smooth curves with intuitive control.
+		</p>
 
 		<h3>Part 2: Bezier surfaces with separable 1D de Casteljau</h3>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
