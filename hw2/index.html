@@ -555,7 +555,7 @@
 		</p>
 		<h3>Extra Credit: Supporting Meshes with Boundary</h3>
 		<p>
-			For the extra credit, I implemented boundary-aware Loop subdivision that properly handles meshes with open edges. My implementation extended both the edge splitting operation and the vertex position calculation to handle boundary cases correctly. In my edge split function, I carefully preserved the boundary structure by ensuring that boundary faces remained properly connected after splitting. For vertex position calculations, I implemented special weighting schemes for boundary vertices. When computing the new position for a vertex on a boundary edge, I used a weighted sum based on a cubic B-spline approximation: 2/5 of each endpoint's position and 1/5 of the adjacent interior vertex's position. To identify boundary edges, I used <code>e->isBoundary()</code>, then retrieved a non-boundary halfedge by switching to the twin if necessary. This special handling ensures smooth curvature continuity along boundaries while still allowing the boundary to be influenced by the interior structure of the mesh, resulting in visually pleasing subdivisions that preserve the open structure of the original mesh.
+			For the extra credit, to handle meshes with open edges, I extended both the edge splitting operation and the vertex position calculation to handle boundary cases correctly. For vertex position calculations, I implemented special weighting schemes for boundary vertices. When computing the new position for a vertex on a boundary edge, I used a weighted sum based on a cubic B-spline approximation: 2/5 of each endpoint's position and 1/5 of the adjacent interior vertex's position. This special handling ensures smooth curvature continuity along boundaries.
 		</p>
 
 		<table>
