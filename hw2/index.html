@@ -307,8 +307,43 @@
 			As shown in the comparison, Phong shading significantly improves the visual quality of the teapot model. When using Phong shading, the lighting smoothly varies across the surface, creating a much more realistic representation of the curved teapot.
 		</p>
 
-		<h3>Part 4: Edge flip</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h3>Part 4: Edge Flip</h3>
+		<p>
+			In this part, I implemented the edge flip operation, a fundamental mesh manipulation technique that allows for local remeshing of triangle pairs without adding or removing elements.
+		</p>
+		
+		<h3>Implementation Approach</h3>
+		<p>
+			To implement edge flipping in <code>HalfedgeMesh::flipEdge()</code>, I first identified all the mesh elements involved in the operation: the edge to be flipped, its two half-edges, the four surrounding vertices, and the two adjacent faces. After confirming the edge wasn't on a boundary, I carefully reassigned all pointers to transform the triangles from (a,b,c) and (c,b,d) to (a,d,c) and (a,b,d). The key was ensuring that every element's pointers were correctly updated, especially using <code>setNeighbors()</code> for half-edges to maintain consistent connectivity in the mesh. I made sure to update the halfedge pointers for all vertices and faces involved to maintain a valid half-edge data structure throughout the operation.
+		</p>
+		
+		<h3>Debugging Process</h3>
+		<p>
+			During development, I found it immensely helpful to draw triangles on paper and mark every variable I defined. This visual approach made it easier to double-check all the pointer relationships and ensure I wasn't missing any connections. 
+		</p>
+		
+		<h3>Visual Results</h3>
+		<p>
+			Below are screenshots of the teapot model before and after performing several edge flips:
+		</p>
+		
+		<table>
+			<tr>
+				<th>Original Teapot</th>
+				<th>After Edge Flips</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="teapot_before_flip.png" alt="Teapot before edge flips" width="400px"/>
+					<figcaption>Original teapot mesh</figcaption>
+				</td>
+				<td>
+					<img src="teapot_after_flip.png" alt="Teapot after edge flips" width="400px"/>
+					<figcaption>Teapot mesh after several edge flips (notice the changed triangulation)</figcaption>
+				</td>
+			</tr>
+		</table>
+		
 
 		<h3>Part 5: Edge split</h3>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
