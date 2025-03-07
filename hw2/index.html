@@ -345,8 +345,84 @@
 		</table>
 		
 
-		<h3>Part 5: Edge split</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<h3>Part 5: Edge Split</h3>
+		<p>
+			In this part, I implemented the edge split operation, another fundamental mesh manipulation technique that subdivides an edge by inserting a new vertex at its midpoint and creating new triangular faces.
+		</p>
+		
+		<h3>Implementation Approach</h3>
+		<p>
+			My implementation of <code>HalfedgeMesh::splitEdge()</code> handles both boundary and non-boundary edges differently. For non-boundary edges, I created 6 new halfedges, 3 new edges, and 2 new faces, replacing the original two triangles with four triangles that connect to the new midpoint vertex. For boundary edges, I created only 4 new halfedges, 2 new edges, and 1 new face (plus a boundary face), being careful to maintain the proper boundary loop connectivity. In both cases, I positioned the new vertex at the midpoint of the original edge and meticulously updated all pointers to ensure the half-edge data structure remained valid. The most challenging aspect was ensuring that every element's connectivity was correctly maintained, particularly when handling the difference between boundary and non-boundary cases.
+		</p>
+		
+		<h3>Debugging Process</h3>
+		<p>
+			Similar to the edge flip operation, I found drawing detailed diagrams on paper to be invaluable for debugging. I created separate drawings for boundary and non-boundary cases, labeling each mesh element and arrow to represent pointers. This visual approach helped me systematically work through all the pointer relationships and identify missing connections. 
+		</p>
+		
+		<h3>Visual Results: Edge Split</h3>
+		<p>
+			Below are screenshots showing a mesh before and after applying several edge splits:
+		</p>
+		
+		<table>
+			<tr>
+				<th>Original Mesh</th>
+				<th>After Edge Splits</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="mesh_before_split.png" alt="Mesh before edge splits" width="400px"/>
+				</td>
+				<td>
+					<img src="mesh_after_split.png" alt="Mesh after edge splits" width="400px"/>
+				</td>
+			</tr>
+		</table>
+		
+		<h3>Visual Results: Combined Operations</h3>
+		<p>
+			The following screenshots demonstrate the effect of applying both edge splits and edge flips to a mesh:
+		</p>
+		
+		<table>
+			<tr>
+				<th>Original Mesh</th>
+				<th>After Splits and Flips</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="mesh_before_combined.png" alt="Mesh before combined operations" width="400px"/>
+				</td>
+				<td>
+					<img src="mesh_after_combined.png" alt="Mesh after combined operations" width="400px"/>
+				</td>
+			</tr>
+		</table>
+		<p>
+			We can observe when we flip splited edges, the edges that didn't connect the original vertexes will be fliped back to the original halfedge.
+		</p>
+
+		<h3>Boundary Edge Splitting</h3>
+		<p>
+			My implementation properly handles boundary edges as shown in the screenshots below:
+		</p>
+		
+		<table>
+			<tr>
+				<th>Boundary Edge Before Split</th>
+				<th>Boundary Edge After Split</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="boundary_before_split.png" alt="Boundary edge before split" width="400px"/>
+				</td>
+				<td>
+					<img src="boundary_after_split.png" alt="Boundary edge after split" width="400px"/>
+				</td>
+			</tr>
+		</table>
+		
 
 		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
