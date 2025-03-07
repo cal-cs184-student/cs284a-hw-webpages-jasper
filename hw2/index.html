@@ -424,22 +424,156 @@
 		</table>
 		
 
-		<h3>Part 6: Loop subdivision for mesh upsampling</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Section III: Potential Extra Credit - Art Competition: Model something Creative</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
+		<h3>Part 6: Loop Subdivision</h3>
+		<p>
+			In this final part, I implemented Loop subdivision, an algorithm that refines a triangle mesh by subdividing each triangle into four smaller triangles while maintaining a smooth surface.
+		</p>
+		<figure>
+			<img src="4-1subdivision.png" style="width:80%"/>
+		</figure>
+		<h3>Implementation Approach</h3>
+		<h3>Implementation Approach</h3>
+		<p>
+			My implementation of <code>MeshResampler::upsample()</code> follows a systematic three-phase approach that carefully preserves the original mesh structure while computing and applying the Loop subdivision:
+		</p>
+		
+		<ol>
+			<li><strong>Pre-computation of new positions:</strong>
 				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
+					<li>For each existing vertex, I compute its new position using the Loop subdivision weights: (1 - n * u) * original_position + u * sum_of_neighbor_positions</li>
+					<li>For each edge, I compute the position for the new vertex that will be created at its midpoint:
+						<ul>
+							<li>For interior edges: 3/8 * (A + B) + 1/8 * (C + D), where A and B are endpoints and C and D are opposite vertices</li>
+							<li>For boundary edges: 1/5 * (2A + 2B + C), where C is the opposite vertex in the single adjacent face</li>
+						</ul>
+					</li>
+					<li>I mark all original vertices with <code>isNew = false</code> and original edges to distinguish them from elements created during subdivision</li>
 				</ul>
 			</li>
-		</ul>
+			
+			<li><strong>Topological subdivision:</strong>
+				<ul>
+					<li>I create a vector containing all original edges to avoid modifying the collection during iteration</li>
+					<li>For each original edge, I perform an edge split operation, which creates a new vertex at the midpoint</li>
+					<li>I mark each new vertex with <code>isNew = true</code> and assign it the pre-computed position</li>
+					<li>The split operation also creates new edges, which are automatically marked as new by my edge split implementation</li>
+				</ul>
+			</li>
+			
+			<li><strong>Edge flipping and position updates:</strong>
+				<ul>
+					<li>I iterate through all edges in the now-subdivided mesh</li>
+					<li>For each new edge, I check if it connects an old vertex and a new vertex</li>
+					<li>If so, I flip the edge to maintain the 4-1 subdivision pattern required by Loop subdivision</li>
+					<li>Finally, I update all vertex positions with their pre-computed new positions</li>
+				</ul>
+			</li>
+		</ol>
+		
+		<p>
+			This approach ensures that all vertex position calculations use the original mesh structure, avoiding dependencies on intermediate subdivision states. 
+		</p>
+		
+		<h3>Observations on Mesh Behavior</h3>
+		<p>
+			Loop subdivision generally produces smoother surfaces with each iteration, but I observed that sharp corners and edges tend to become rounded. This is particularly noticeable on models like the teapot or cube, where the sharp corners quickly become rounded spheres after just a few iterations. This smoothing effect occurs because the Loop weights average each vertex with its neighbors, causing sharp features to gradually blend with surrounding geometry.
+		</p>
+		
+		<table>
+			<tr>
+				<th>Original Teapot</th>
+				<th>After Loop Subdivision</th>
+				<th>After 2 Loop Subdivision</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="teapot_sharp_model_original.png" alt="Original sharp model" width="400px"/>
+				</td>
+				<td>
+					<img src="teapot_sharp_model_subdivided.png" alt="Subdivided sharp model" width="400px"/>
+				</td>
+				<td>
+					<img src="teapot_sharp_model_2_subdivided.png" alt="Subdivided sharp model" width="400px"/>
+				</td>
+			</tr>
+			<tr>
+				<th>Original Cube</th>
+				<th>After Loop Subdivision</th>
+				<th>After 2 Loop Subdivision</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="cube_sharp_model_original.png" alt="Original sharp model" width="400px"/>
+				</td>
+				<td>
+					<img src="cube_sharp_model_subdivided.png" alt="Subdivided sharp model" width="400px"/>
+				</td>
+				<td>
+					<img src="cube_sharp_model_2_subdivided.png" alt="Subdivided sharp model" width="400px"/>
+				</td>
+			</tr>
+		</table>
+		
+		<p>
+			Pre-splitting edges along sharp features before applying Loop subdivision can help preserve these features better. By strategically adding more vertices along sharp edges, the averaging effect becomes more localized.
+		</p>
+		
+		<h3>Cube Symmetry Issue</h3>
+		<p>
+			When applying Loop subdivision to the cube model (dae/cube.dae), I noticed that the cube becomes asymmetric after repeated subdivisions. This asymmetry occurs because the original cube mesh has an asymmetric edge structure - each face is not triangulated in the same pattern, causing the subdivision to propagate differently in different directions.
+		</p>
+		
+		<table>
+			<tr>
+				<th>Original Cube</th>
+				<th>Pre-processing</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="cube_sharp_model_original.png" alt="Original cube" width="300px"/>
+				</td>
+				<td>
+					<img src="cube_pre_processing.png" alt="Asymmetrically subdivided cube" width="300px"/>
+				</td>
+			</tr>
+			<tr>
+				<th>Asymmetric Subdivision</th>
+				<th>Symmetric Subdivision</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="cube_sharp_model_2_subdivided.png" alt="Original cube" width="300px"/>
+				</td>
+				<td>
+					<img src="cube_symmetric_subdivision.png" alt="Asymmetrically subdivided cube" width="300px"/>
+				</td>
+			</tr>
+		</table>
+		
+		<p>
+			To achieve symmetric subdivision, I pre-processed the cube by spliting all faces to create a symmetric triangulation pattern. 
+		</p>
+		<h3>Extra Credit: Supporting Meshes with Boundary</h3>
+		<p>
+			For the extra credit, I implemented boundary-aware Loop subdivision that properly handles meshes with open edges. My implementation extended both the edge splitting operation and the vertex position calculation to handle boundary cases correctly. In my edge split function, I carefully preserved the boundary structure by ensuring that boundary faces remained properly connected after splitting. For vertex position calculations, I implemented special weighting schemes for boundary vertices. When computing the new position for a vertex on a boundary edge, I used a weighted sum based on a cubic B-spline approximation: 2/5 of each endpoint's position and 1/5 of the adjacent interior vertex's position. To identify boundary edges, I used <code>e->isBoundary()</code>, then retrieved a non-boundary halfedge by switching to the twin if necessary. This special handling ensures smooth curvature continuity along boundaries while still allowing the boundary to be influenced by the interior structure of the mesh, resulting in visually pleasing subdivisions that preserve the open structure of the original mesh.
+		</p>
+
+		<table>
+			<tr>
+				<th>Original Mesh with Boundary</th>
+				<th>After Boundary-Aware Subdivision</th>
+			</tr>
+			<tr>
+				<td>
+					<img src="boundary_mesh_original.png" alt="Original mesh with boundary" width="400px"/>
+					<figcaption>Original mesh with boundary edges</figcaption>
+				</td>
+				<td>
+					<img src="boundary_mesh_subdivided.png" alt="Subdivided mesh with boundary" width="400px"/>
+					<figcaption>Mesh after subdivision with proper boundary handling</figcaption>
+				</td>
+			</tr>
+		</table>
 		</div>
 	</body>
 </html>
