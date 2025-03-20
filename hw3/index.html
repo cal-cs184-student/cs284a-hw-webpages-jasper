@@ -3,76 +3,217 @@
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 		<style>
-			h1 {
-				text-align: center;
-			}
-
-			.container {
-				margin: 0 auto;
-				padding: 60px 20%;
-			}
-
-			figure {
-				text-align: center;
-			}
-
-			img {
-				display: inline-block;
-			}
-
+			/* Base styles */
 			body {
 				font-family: 'Inter', sans-serif;
+				line-height: 1.6;
+				color: #333;
+				background-color: #f9f9f9;
+			}
+	
+			.container {
+				margin: 0 auto;
+				padding: 40px 15%;
+				max-width: 1200px;
+				background-color: white;
+				box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+			}
+	
+			/* Typography */
+			h1 {
+				text-align: center;
+				color: #2c3e50;
+				margin-bottom: 1.5rem;
+				font-size: 2.2rem;
+			}
+	
+			h2 {
+				color: #2c3e50;
+				border-bottom: 2px solid #eee;
+				padding-bottom: 0.5rem;
+				margin-top: 2.5rem;
+			}
+	
+			h3 {
+				color: #34495e;
+				margin-top: 1.5rem;
+			}
+	
+			p {
+				margin-bottom: 1.2rem;
+			}
+	
+			/* Links */
+			a {
+				color: #3498db;
+				text-decoration: none;
+			}
+	
+			a:hover {
+				text-decoration: underline;
+			}
+	
+			/* Code */
+			code {
+				background-color: #f7f9fa;
+				padding: 2px 6px;
+				border-radius: 3px;
+				font-family: monospace;
+				color: #e74c3c;
+			}
+	
+			/* Images and figures */
+			figure {
+				text-align: center;
+				margin: 2rem 0;
+			}
+	
+			img {
+				max-width: 100%;
+				border-radius: 4px;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+				display: block;
+				margin-left: auto;
+				margin-right: auto;
+			}
+	
+			figcaption {
+				color: #666;
+				font-size: 0.9rem;
+				margin-top: 0.5rem;
+			}
+	
+			/* Tables */
+			table {
+				width: 100%;
+				text-align: center;
+				border-collapse: collapse;
+				margin: 1.5rem 0;
+			}
+	
+			th,
+			td {
+				border: 1px solid #ddd;
+				padding: 12px;
+			}
+	
+			th {
+				background-color: #f5f6fa;
+				font-weight: 600;
+			}
+	
+			tr:nth-child(even) {
+				background-color: #f9f9f9;
+			}
+	
+			/* Lists */
+			ul {
+				padding-left: 1.5rem;
+				margin-bottom: 1.2rem;
+			}
+	
+			li {
+				margin-bottom: 0.5rem;
 			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
 		<h1>CS184/284A Spring 2025 Homework 3 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+		<div style="text-align: center;">Name: Jasper Liu</div>
 
 		<br>
+		Link to webpage: <a
+			href="https://cal-cs184-student.github.io/cs284a-hw-webpages-jasper/">cal-cs184-student.github.io/cs284a-hw-webpages-jasper/</a>
+		<br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-		
+		Link to GitHub repository: <a
+			href="https://github.com/cal-cs184-student/cs284a-hw-webpages-jasper">github.com/cal-cs184-student/cs284a-hw-webpages-jasper</a>
+
 		<figure>
 			<img src="cornell.png" alt="Cornell Boxes with Bunnies" style="width:70%"/>
-			<figcaption>You can add images with captions!</figcaption>
+			<figcaption>Cornell Boxes with Bunnies rendered using path tracing</figcaption>
 		</figure>
 
 		<!--
 		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
 		-->
-
+		<!-- TODO -->
 		<h2>Overview</h2>
 		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
 
 		<h2>Part 1: Ray Generation and Scene Intersection</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
+		<p>
+			In this part, I implemented camera ray generation and primitive intersection testing, which are fundamental components for rendering 3D scenes.
+		</p>
+		
+		<h3>Ray Generation</h3>
+		<p>
+			I implemented the <code>Camera::generate_ray()</code> function to convert 2D image coordinates to 3D rays. The process involves:
+		</p>
+		<ul>
+			<li>Converting normalized coordinates to points on the camera's sensor plane</li>
+			<li>Creating a ray from the camera through this point</li>
+			<li>Transforming the ray to world space using the camera-to-world matrix</li>
+		</ul>
+		
+		<p>
+			The resulting rays correctly sample the scene according to the camera's position, orientation, and field of view.
+		</p>
+		
+		<h3>Triangle Intersection</h3>
+		<p>
+			For triangle intersection, I implemented the Möller-Trumbore algorithm which efficiently computes both the intersection point and barycentric coordinates. The algorithm:
+		</p>
+		<ul>
+			<li>Computes vectors for two edges of the triangle</li>
+			<li>Uses cross products to solve for the intersection parameters</li>
+			<li>Validates the barycentric coordinates to ensure the point is inside the triangle</li>
+			<li>Checks if the intersection distance is within the ray's valid range</li>
+		</ul>
+		
+		<p>
+			For valid intersections, I calculate the normal by interpolating the triangle's vertex normals using barycentric coordinates.
+		</p>
+		
+		<h3>Sphere Intersection</h3>
+		<p>
+			For sphere intersection, I solved the quadratic equation that determines where a ray intersects a sphere. The implementation:
+		</p>
+		<ul>
+			<li>Forms a quadratic equation based on the ray and sphere parameters</li>
+			<li>Solves for the intersection distances</li>
+			<li>Chooses the closest valid intersection</li>
+			<li>Computes the normal at the intersection point</li>
+		</ul>
+		
+		<h3>Results with Normal Shading</h3>
+		<p>
+			Below are renders showing normal shading for various scenes. The colors represent surface normals, providing a clear visualization of the geometry.
+		</p>
+		
 		<div style="display: flex; flex-direction: column; align-items: center;">
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="cornell.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="part1_cube.png" width="400px"/>
+						<figcaption>Simple cube with normal shading</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part1_CBspheres.png" width="400px"/>
+						<figcaption>Cornell box with spheres</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="part1_CBbunny.png" width="400px"/>
+						<figcaption>Cornell box with bunny model</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part1_bench.png" width="400px"/>
+						<figcaption>Cornell box with bench model</figcaption>
+					</td>
+				</tr>
 			</table>
 		</div>
 		
@@ -91,16 +232,7 @@
 		<h2>(Optional) Part 6: Extra Credit Opportunities</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
+
 		</div>
 	</body>
 </html>
