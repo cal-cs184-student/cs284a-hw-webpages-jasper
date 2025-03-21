@@ -218,7 +218,116 @@
 		</div>
 		
 		<h2>Part 2: Bounding Volume Hierarchy</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>
+			In this part, I implemented a Bounding Volume Hierarchy (BVH) to accelerate ray intersection tests, dramatically improving rendering performance for complex scenes.
+		</p>
+		
+		<h3>BVH Construction</h3>
+		<p>
+			My BVH construction algorithm recursively divides the scene primitives into subgroups:
+		</p>
+		<ul>
+			<li>For each node, I first compute a bounding box containing all primitives</li>
+			<li>If the number of primitives is small enough, I create a leaf node</li>
+			<li>Otherwise, I split primitives along the longest axis of the bounding box</li>
+			<li>For the splitting point, I use the midpoint of the bounding box along the chosen axis</li>
+			<li>Primitives are assigned to left or right children based on their centroid positions</li>
+		</ul>
+		
+		<p>
+			This spatial partitioning approach ensures that rays can quickly eliminate large portions of the scene without testing individual primitives for intersection.
+		</p>
+		
+		<h3>Bounding Box Intersection</h3>
+		<p>
+			I implemented an efficient ray-box intersection test that:
+		</p>
+		<ul>
+			<li>Computes the intersection points of the ray with each of the three pairs of axis-aligned planes</li>
+			<li>Finds the latest entry point and earliest exit point across all three dimensions</li>
+			<li>Returns true if the entry occurs before the exit and within the ray's valid range</li>
+		</ul>
+		
+		<h3>BVH Traversal</h3>
+		<p>
+			My BVH traversal algorithm recursively tests rays against nodes:
+		</p>
+		<ul>
+			<li>First checks if the ray intersects the node's bounding box</li>
+			<li>For interior nodes, recursively tests both children if the box is hit</li>
+			<li>For leaf nodes, tests all contained primitives for intersection</li>
+			<li>For <code>has_intersection()</code>, returns immediately after finding any hit</li>
+			<li>For <code>intersect()</code>, checks all relevant nodes to find the closest hit</li>
+		</ul>
+		
+		<p>
+			The BVH acceleration structure dramatically improved rendering performance. This transforms the ray-primitive intersection time complexity from O(n) to approximately O(log n), making it feasible to render scenes with tens of thousands of triangles in under a second. The most significant improvements were seen in models with high triangle counts, where naive intersection testing becomes prohibitively expensive.
+		</p>
+		
+		<h3>Complex Scenes</h3>
+		<p>
+			Below are renders of complex models that would be impractical to render without BVH acceleration:
+		</p>
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="part2_beast.png" width="400px"/>
+						<figcaption>Beast model (64,618 primitives, average speed 2.96 million rays per sec)</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part2_dragon.png" width="400px"/>
+						<figcaption>Dragon model (105,120 primitives, average speed 2.44 million rays per sec)</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="part2_CBdragon.png" width="400px"/>
+						<figcaption>Dragon model (100,012 primitives, average speed 2.55 million rays per sec)</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part2_maxplanck.png" width="400px"/>
+						<figcaption>Max Planck model (50,801 primitives, average speed 2.15 million rays per sec)</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+
+		<h3>Performance Results</h3>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<th>Scene</th>
+					<th>Without BVH</th>
+					<th>With BVH</th>
+					<th>Speedup</th>
+				</tr>
+				<tr>
+					<td>bench.dae</td>
+					<td>570.09 seconds</td>
+					<td>0.11 seconds</td>
+					<td>~5181×</td>
+				</tr>
+				<tr>
+					<td>beast.dae</td>
+					<td>890.56 seconds</td>
+					<td>0.16 seconds</td>
+					<td>~5566×</td>
+				</tr>
+				<tr>
+					<td>maxplanck.dae</td>
+					<td>532.31 seconds</td>
+					<td>0.223 seconds</td>
+					<td>~2387×</td>
+				</tr>
+			</table>
+		</div>
+
+		<p>
+			The BVH acceleration structure dramatically improved rendering performance, with speedups of 2387-5566× for complex models. This transforms the ray-primitive intersection time complexity from O(n) to approximately O(log n), making it feasible to render scenes with tens of thousands of primitives in under a second. 
+		</p>
 
 		<h2>Part 3: Direct Illumination</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
