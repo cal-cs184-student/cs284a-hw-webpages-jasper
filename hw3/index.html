@@ -330,7 +330,115 @@
 		</p>
 
 		<h2>Part 3: Direct Illumination</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>
+			In this part, I implemented direct illumination using two different sampling strategies: uniform hemisphere sampling and importance sampling of light sources.
+		</p>
+		
+		<h3>Diffuse BSDF Implementation</h3>
+		<p>
+			First, I implemented the diffuse BSDF (Bidirectional Scattering Distribution Function) for Lambertian surfaces:
+		</p>
+		<ul>
+			<li>The function returns the reflectance divided by π for valid incoming and outgoing directions</li>
+			<li>This represents a material that scatters light equally in all directions, following Lambert's cosine law</li>
+		</ul>
+		
+		<h3>Uniform Hemisphere Sampling</h3>
+		<p>
+			In the <code>estimate_direct_lighting_hemisphere</code> function, I implemented direct lighting estimation by sampling directions uniformly in the hemisphere above the surface point:
+		</p>
+		<ul>
+			<li>Generate random directions on the hemisphere using the hemisphere sampler</li>
+			<li>Transform these directions from object space to world space</li>
+			<li>Cast shadow rays to determine if these directions intersect with light sources</li>
+			<li>For each ray that hits a light source, compute the contribution using the rendering equation</li>
+			<li>Average the results over all samples</li>
+		</ul>
+		
+		<h3>Importance Sampling of Lights</h3>
+		<p>
+			In the <code>estimate_direct_lighting_importance</code> function, I implemented a more efficient approach that samples lights directly:
+		</p>
+		<ul>
+			<li>For each light source in the scene, sample points on the light's surface</li>
+			<li>For delta lights (point lights), sample only once</li>
+			<li>For area lights, take multiple samples and average them</li>
+			<li>Cast shadow rays to determine visibility between the surface point and each light sample</li>
+			<li>For unoccluded samples, compute the contribution using the rendering equation, accounting for the PDF of the light sampling</li>
+		</ul>
+		
+		<h3>Rendering Results Comparison</h3>
+		<p>
+			Below are Cornell box scenes rendered with both sampling methods:
+		</p>
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<th>Uniform Hemisphere Sampling</th>
+					<th>Importance Sampling</th>
+				</tr>
+				<tr>
+					<td>
+						<img src="part3_hemisphere_bunny_64.png" width="400px"/>
+					</td>
+					<td>
+						<img src="part3_importance_bunny_64.png" width="400px"/>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img src="part3_hemisphere_sphere_64.png" width="400px"/>
+					</td>
+					<td>
+						<img src="part3_importance_sphere_64.png" width="400px"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<h3>Noise Level Comparison with Different Light Ray Counts</h3>
+		<p>
+			Below is a comparison of soft shadows using importance sampling with different numbers of light rays:
+		</p>
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<th>1 light ray per light (noisy shadows)</th>
+					<th>4 light rays per light</th>
+				</tr>
+				<tr>
+					<td>
+						<img src="dragon_1_1.png" width="400px"/>
+					</td>
+					<td>
+						<img src="dragon_1_4.png" width="400px"/>
+					</td>
+				</tr>
+				<tr>
+					<th>16 light rays per light</th>
+					<th>64 light rays per light (smooth shadows)</th>
+				</tr>
+				<tr>
+					<td>
+						<img src="dragon_1_16.png" width="400px"/>
+					</td>
+					<td>
+						<img src="dragon_1_64.png" width="400px"/>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<h3>Analysis of Sampling Methods</h3>
+		<p>
+			Importance sampling works much better than uniform hemisphere sampling. Many random hemisphere rays miss the lights completely, creating noisy images. 
+			By focusing samples directly on light sources, importance sampling gives cleaner results with fewer samples. 
+			This is helpful for small lights that would rarely be hit by random rays. Point lights are basically impossible to render with hemisphere sampling, but work fine with importance sampling. 
+			The shadow comparison clearly shows how importance sampling creates smoother shadows with way less work.		
+		</p>
+
 
 		<h2>Part 4: Global Illumination</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
