@@ -142,9 +142,9 @@
 		-->
 
 		<h2>Overview</h2>
-		NEED TO BE Modified
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
-
+		<p>
+			This project focuses on implementing and analyzing fundamental geometric algorithms related to Bézier curves, Bézier surfaces, and triangle mesh operations. Through de Casteljau's algorithm, I explored the recursive evaluation of Bézier curves and extended the concept to Bézier surfaces. Additionally, I implemented essential mesh-processing techniques, including vertex normal computation, edge flips, edge splits, and Loop subdivision, to refine and manipulate 3D models. These implementations provided valuable insights into computational geometry, numerical stability, and the impact of different algorithms on surface smoothness. Overall, this homework deepened my understanding of geometric modeling and practical applications in computer graphics.
+		</p>
 		<h2>Section I: Bezier Curves and Surfaces</h2>
 
 		<h3>Part 1: Bezier Curves with 1D de Casteljau Subdivision</h3>
@@ -555,7 +555,7 @@
 		</p>
 		<h3>Extra Credit: Supporting Meshes with Boundary</h3>
 		<p>
-			For the extra credit, I implemented boundary-aware Loop subdivision that properly handles meshes with open edges. My implementation extended both the edge splitting operation and the vertex position calculation to handle boundary cases correctly. In my edge split function, I carefully preserved the boundary structure by ensuring that boundary faces remained properly connected after splitting. For vertex position calculations, I implemented special weighting schemes for boundary vertices. When computing the new position for a vertex on a boundary edge, I used a weighted sum based on a cubic B-spline approximation: 2/5 of each endpoint's position and 1/5 of the adjacent interior vertex's position. To identify boundary edges, I used <code>e->isBoundary()</code>, then retrieved a non-boundary halfedge by switching to the twin if necessary. This special handling ensures smooth curvature continuity along boundaries while still allowing the boundary to be influenced by the interior structure of the mesh, resulting in visually pleasing subdivisions that preserve the open structure of the original mesh.
+			For the extra credit, to handle meshes with open edges, I extended both the edge splitting operation and the vertex position calculation to handle boundary cases correctly. For vertex position calculations, I implemented special weighting schemes for boundary vertices. When computing the new position for a vertex on a boundary edge, I used a weighted sum based on a cubic B-spline approximation: 2/5 of each endpoint's position and 1/5 of the adjacent interior vertex's position. This special handling ensures smooth curvature continuity along boundaries.
 		</p>
 
 		<table>
