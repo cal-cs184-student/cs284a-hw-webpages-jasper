@@ -135,12 +135,16 @@
 			<figcaption>Cornell Boxes with Bunnies rendered using path tracing</figcaption>
 		</figure>
 
-		<!--
-		We've already added one heading per part, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
-		<!-- TODO -->
+
 		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		<p>
+			In this project, I implemented a physically-based path tracer that simulates light interactions to create photorealistic images. 
+			Starting with basic ray generation and primitive intersection, I developed a rendering pipeline enhanced by a Bounding Volume Hierarchy (BVH) acceleration structure that dramatically improved performance for complex scenes. 
+			I implemented direct illumination using both uniform hemisphere sampling and importance sampling of light sources, demonstrating how targeted sampling significantly reduces noise. 
+			The path tracer was extended to support global illumination through recursive ray bounces, capturing indirect lighting effects like color bleeding and soft shadows. 
+			Finally, I added adaptive sampling to intelligently allocate computational resources, focusing more samples on complex areas like shadow boundaries and geometric details while using fewer samples in uniform regions. 
+			This project deepened my understanding of computational geometry, Monte Carlo methods, and physically-based rendering techniques.
+		</p>
 
 		<h2>Part 1: Ray Generation and Scene Intersection</h2>
 		<p>
@@ -196,18 +200,8 @@
 			<table style="width: 100%; text-align: center; border-collapse: collapse;">
 				<tr>
 					<td style="text-align: center;">
-						<img src="part1_cube.png" width="400px"/>
-						<figcaption>Simple cube with normal shading</figcaption>
-					</td>
-					<td style="text-align: center;">
 						<img src="part1_CBspheres.png" width="400px"/>
 						<figcaption>Cornell box with spheres</figcaption>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: center;">
-						<img src="part1_CBbunny.png" width="400px"/>
-						<figcaption>Cornell box with bunny model</figcaption>
 					</td>
 					<td style="text-align: center;">
 						<img src="part1_bench.png" width="400px"/>
@@ -441,13 +435,280 @@
 
 
 		<h2>Part 4: Global Illumination</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>
+			In this part, I implemented indirect illumination to simulate the full global illumination rendering equation, allowing light to bounce multiple times throughout the scene.
+		</p>
+		
+		<h3>Indirect Lighting Implementation</h3>
+		<p>
+			The implementation of global illumination focuses on the <code>at_least_one_bounce_radiance</code> function, which:
+		</p>
+		<ul>
+			<li>First calculates direct lighting using the methods from Part 3</li>
+			<li>Then recursively traces additional bounces of light by sampling new ray directions based on the BSDF</li>
+			<li>Implements Russian Roulette for path termination with a probability of 0.3</li>
+			<li>Handles both accumulated and non-accumulated bounce modes</li>
+		</ul>
+		
+		<p>
+			For each recursive bounce, the function:
+		</p>
+		<ul>
+			<li>Samples a new direction using the surface's BSDF</li>
+			<li>Traces a ray in that direction to find the next intersection</li>
+			<li>Recursively computes the radiance from that intersection</li>
+			<li>Properly scales the result by the BSDF value, cosine term, PDF, and Russian Roulette probability</li>
+		</ul>
+		
+		<h3>Global Illumination Results</h3>
+		<p>
+			Below is a scene rendered with full global illumination using 1024 samples per pixel:
+		</p>
+		
+		<div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0;">
+			<div style="flex: 1; text-align: center; margin-right: 10px;">
+				<img src="part4_global_1024_dragon.png" width="100%" style="max-width: 400px;"/>
+			</div>
+			<div style="flex: 1; text-align: center; margin-left: 10px;">
+				<img src="part4_global_1024_sphere.png" width="100%" style="max-width: 400px;"/>
+			</div>
+		</div>
+		
+		<h3>Direct vs. Indirect Illumination</h3>
+		<p>
+			Comparison of direct-only and indirect-only illumination for the Cornell Box:
+		</p>
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_direct_only.png" width="400px"/>
+						<figcaption>Direct illumination only</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_indirect_only.png" width="400px"/>
+						<figcaption>Indirect illumination only</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<p>
+			Direct illumination shows sharp shadows and high contrast, while indirect illumination captures color bleeding from the walls onto the bunny and softens dark areas with ambient light.
+		</p>
+		
+		<h3>Contribution of Different Light Bounces</h3>
+		<p>
+			The images below show individual bounces of light (non-accumulated):
+		</p>
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_m0.png" width="300px"/>
+						<figcaption>0 bounces (emission only)</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_m1.png" width="300px"/>
+						<figcaption>1st bounce (direct lighting)</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_m2.png" width="300px"/>
+						<figcaption>2nd bounces</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_m3.png" width="300px"/>
+						<figcaption>3rd bounces</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_m4.png" width="300px"/>
+						<figcaption>4th bounces</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_m5.png" width="300px"/>
+						<figcaption>5th bounces</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<p>
+			The 2nd bounce shows how light reflects twice through the scene. 
+			We can see the bluish tints on the bunny from the colored walls - this is color bleeding in action. 
+			The 3rd bounce image reveals even more subtle lighting, illuminating darker parts of the bunny that couldn't be lit by direct light or even the first indirect bounce. 
+			These higher-order light interactions contribute to the realism of the final rendered image, creating soft transitions 
+		</p>
+		
+		<h3>Russian Roulette Results</h3>
+		<p>
+			Comparison of accumulated and non-accumulated bounces:
+		</p>
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_m0.png" width="300px"/>
+						<figcaption>Russian Roulette, max ray depth=0</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_m1_accu.png" width="300px"/>
+						<figcaption>Russian Roulette, max ray depth=1</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_m2_accu.png" width="300px"/>
+						<figcaption>Russian Roulette, max ray depth=2</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_m3_accu.png" width="300px"/>
+						<figcaption>Russian Roulette, max ray depth=3</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_m4_accu.png" width="300px"/>
+						<figcaption>Russian Roulette, max ray depth=4</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_m100_accu.png" width="300px"/>
+						<figcaption>Russian Roulette, max ray depth=100</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<p>
+			Accumulated images include all light bounces up to the specified depth, resulting in progressively brighter and more complete illumination as the max depth increases.
+		</p>
+		
+		
+		<h3>Sample Count Comparison</h3>
+		<p>
+			Rendering quality with different sample counts:
+		</p>
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_s1.png" width="200px"/>
+						<figcaption>1 sample per pixel, max ray depth=4</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_s2.png" width="200px"/>
+						<figcaption>2 samples per pixel</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_s4.png" width="200px"/>
+						<figcaption>4 samples per pixel</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: center;">
+						<img src="part4_s8.png" width="200px"/>
+						<figcaption>8 samples per pixel</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_s16.png" width="200px"/>
+						<figcaption>16 samples per pixel</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part4_s64.png" width="200px"/>
+						<figcaption>64 samples per pixel</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" style="text-align: center;">
+						<img src="part4_m4_accu.png" width="400px"/>
+						<figcaption>1024 samples per pixel</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<p>
+			With 1 sample per pixel, the image is extremely noisy. At 4-8 samples, major features become clear but noise remains visible. By 64 samples, the image quality is reasonable, while 1024 samples produces a clean result with smooth shadows and realistic illumination throughout the scene.
+		</p>
 
+		
 		<h2>Part 5: Adaptive Sampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>
+			In this final part, I implemented adaptive sampling to intelligently allocate samples across the image based on each pixel's convergence rate.
+		</p>
+		
+		<h3>Adaptive Sampling Implementation</h3>
+		<p>
+			Adaptive sampling dynamically allocates samples based on pixel convergence:
+		</p>
 
-		<h2>(Optional) Part 6: Extra Credit Opportunities</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<ul>
+			<li>For each pixel, we track:
+				<ul>
+					<li>\( s_1 \) = Sum of illuminance values</li>
+					<li>\( s_2 \) = Sum of squared illuminance values</li>
+				</ul>
+			</li>
+			<li>Every 32 samples (samplesPerBatch), we check convergence by:
+				<ul>
+					<li>Mean \( \mu = s_1/n \)</li>
+					<li>Variance \( \sigma^2 = (s_2 - s_1^2/n)/(n-1) \)</li>
+					<li>Confidence interval \( I = 1.96\sigma/\sqrt{n} \)</li>
+					<li>If \( I \leq 0.05\mu \), stop sampling (pixel has converged)</li>
+				</ul>
+			</li>
+			<li>This 95% confidence approach concentrates samples on complex areas (shadows, edges) while using fewer on simple surfaces</li>
+		</ul>
+		
+		<h3>Scenes rendered with adaptive sampling using max 2048 samples per pixel:</h3>
+
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="part5_bunny_render.png" width="400px"/>
+						<figcaption>Final rendered image</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part5_bunny_rate.png" width="400px"/>
+						<figcaption>Sample rate visualization (red=high, blue=low)</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
+		
+		<p>
+			The heat map reveals where computational effort is focused (red=high samples, blue=low):
+		</p>
+		<ul>
+			<li>Shadow boundaries require the most samples, particularly at the bunny's soft shadows</li>
+			<li>Color bleeding areas where the bunny meets the floor need extra sampling</li>
+			<li>The bunny's edges and detailed features use more samples</li>
+			<li>Flat, uniform areas like walls converge quickly with minimal samples</li>
+		</ul>
+		
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+				<tr>
+					<td style="text-align: center;">
+						<img src="part5_sphere_render.png" width="400px"/>
+						<figcaption>Final rendered image</figcaption>
+					</td>
+					<td style="text-align: center;">
+						<img src="part5_sphere_rate.png" width="400px"/>
+						<figcaption>Sample rate visualization (red=high, blue=low)</figcaption>
+					</td>
+				</tr>
+			</table>
+		</div>
 		
 
 		</div>
