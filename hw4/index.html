@@ -238,6 +238,85 @@
 			<figure>
 				<img src="part2_final_rest.png" alt="Final resting state of cloth" style="width:70%"/>
 			</figure>
+
+			<!-- Part 3 -->
+			<h2>Part 3: Collisions</h2>
+			<p>
+				In this part, I implemented collision handling between the cloth and external objects like 
+				spheres and planes. The implementation detects when point masses intersect with or cross 
+				object boundaries and adjusts their positions accordingly to prevent penetration.
+			</p>
+
+			<h3>Collision Implementation</h3>
+			<p>
+				For sphere collisions, I check if a point mass is inside the sphere by comparing the distance 
+				between the point mass and the sphere's center with the sphere's radius. If the point is inside, 
+				I calculate a correction vector that moves the point to the sphere's surface along the line from 
+				the sphere's center to the point. This correction is then applied to the point's position, scaled 
+				by a friction factor to simulate the friction between the cloth and the sphere.
+			</p>
+			
+			<p>
+				For plane collisions, I detect when a point mass crosses from one side of the plane to the other 
+				by checking the sign of the dot product between the point-to-plane vector and the plane's normal. 
+				When a crossing is detected, I calculate the intersection point along the line segment from the 
+				point's previous position to its current position, then place the point slightly above the plane 
+				on the original side. Like with spheres, the correction is scaled by friction.
+			</p>
+
+			<h3>Sphere Collision with Different Spring Constants</h3>
+			<p>
+				The spring constant significantly affects how the cloth drapes over the sphere. Below are 
+				results with three different spring constants:
+			</p>
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="part3_ks500_sphere.png" width="400px"/>
+							<figcaption>Low spring constant (ks = 500)</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="part3_ks5000_sphere.png" width="400px"/>
+							<figcaption>Default spring constant (ks = 5000)</figcaption>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" style="text-align: center;">
+							<img src="part3_ks50000_sphere.png" width="400px"/>
+							<figcaption>High spring constant (ks = 50000)</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
+			
+			<p>
+				With a low spring constant (ks = 500), the cloth is very soft and drapes closely around the sphere, 
+				creating many folds and wrinkles as it conforms to the spherical shape. The cloth stretches significantly 
+				under its own weight.
+			</p>
+			
+			<p>
+				With the default spring constant (ks = 5000), the cloth maintains some structure while still 
+				adapting to the sphere's shape. 
+			</p>
+			
+			<p>
+				With a high spring constant (ks = 50000), the cloth behaves like a stiff material, barely deforming 
+				from its original shape. It touches the sphere but maintains a tent-like structure over it instead of 
+				conforming to the sphere's contours.
+			</p>
+
+			<h3>Plane Collision</h3>
+			<p>
+				Below is the cloth at rest on a plane.
+			</p>
+
+			<figure>
+				<img src="part3_plane_rest.png" alt="Cloth at rest on a plane" style="width:70%"/>
+				<figcaption>Cloth peacefully at rest on a plane with custom coloring</figcaption>
+			</figure>
 		</div>
 	</body>
 </html>
