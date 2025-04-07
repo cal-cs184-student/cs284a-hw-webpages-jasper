@@ -163,6 +163,81 @@
 					</tr>
 				</table>
 			</div>
+
+			<!-- Part 2 -->
+			<h2>Part 2: Simulation Parameters</h2>
+			<p>
+				In this part, I implemented physical forces and Verlet integration to simulate cloth dynamics. 
+				The implementation includes external forces (like gravity), spring forces based on Hooke's law, 
+				and position constraints to prevent excessive deformation. I experimented with different 
+				simulation parameters to observe their effects on cloth behavior.
+			</p>
+
+			<h3>Spring Constant (ks)</h3>
+			<p>
+				The spring constant affects the stiffness of the cloth. With a low spring constant (ks = 10), 
+				the cloth behaves more like a soft, droopy fabric such as silk. It stretches 
+				significantly under its own weight and settles slowly with visible waves. With a high spring 
+				constant (ks = 100000), the cloth behaves more like a stiff material such as canvas. 
+				It maintains its shape better, shows less stretching, and settles quickly with minimal deformation.
+			</p>
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="part2_low_ks.png" width="400px"/>
+							<figcaption>Low spring constant (ks = 10)</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="part2_high_ks.png" width="400px"/>
+							<figcaption>High spring constant (ks = 100000)</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<h3>Density</h3>
+			<p>
+				Density determines the mass of the cloth, affecting how it responds to forces. With a low density 
+				(density = 5), the cloth behaves like a lightweight material. It settles quickly 
+				and is more responsive to external forces like wind. With a high density (density = 1000), the cloth 
+				behaves like a heavy material. It falls faster due to greater weight, 
+				creates more pronounced folds, and is more resistant to movement once settled.
+			</p>
+
+			<div style="display: flex; flex-direction: column; align-items: center;">
+				<table style="width: 100%; text-align: center; border-collapse: collapse;">
+					<tr>
+						<td style="text-align: center;">
+							<img src="part2_low_density.png" width="400px"/>
+							<figcaption>Low density (density = 5) - Lightweight behavior with gentle folds</figcaption>
+						</td>
+						<td style="text-align: center;">
+							<img src="part2_high_density.png" width="400px"/>
+							<figcaption>High density (density = 1000) - Heavy behavior with pronounced draping</figcaption>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<h3>Damping</h3>
+			<p>
+				Damping controls how quickly the cloth loses energy during movement. With high damping (damping = 1%), 
+				the cloth oscillates for a long time before coming to rest, similar to an elastic material with little 
+				internal friction. With low damping (damping = 0.1%), the cloth quickly settles into position with 
+				minimal bouncing, behaving more like a material with high internal friction.
+			</p>
+
+			<h3>Final Resting State</h3>
+			<p>
+				Below is the final resting state of the cloth from scene/pinned4.json. For this rendering, I used 
+				the default parameters (ks = 5000, density = 15, damping = 0.2%).
+			</p>
+
+			<figure>
+				<img src="part2_final_rest.png" alt="Final resting state of cloth" style="width:70%"/>
+			</figure>
 		</div>
 	</body>
 </html>
