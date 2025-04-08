@@ -138,31 +138,29 @@
 				and bending constraints (connecting masses that are two positions apart).
 			</p>
 
-			<div style="display: flex; flex-direction: column; align-items: center;">
-				<table style="width: 100%; text-align: center; border-collapse: collapse;">
-					<tr>
-						<td style="text-align: center;">
-							<img src="part1_no_constraint.png" width="400px"/>
-							<figcaption>Cloth wireframe without shearing constraints</figcaption>
-						</td>
-						<td style="text-align: center;">
-							<img src="part1_no_shearing.png" width="400px"/>
-							<figcaption>Cloth wireframe without shearing constraints</figcaption>
-						</td>
-					</tr>
-					<tr>
-						<td style="text-align: center;">
-							<img src="part1_only_shearing.png" width="400px"/>
-							<figcaption>Cloth wireframe with only shearing constraints</figcaption>
-						</td>
+			<table>
+				<tr>
+					<td>
+						<img src="part1_no_constraint.png" width="400px"/>
+						<figcaption>Cloth wireframe without shearing constraints</figcaption>
+					</td>
+					<td>
+						<img src="part1_no_shearing.png" width="400px"/>
+						<figcaption>Cloth wireframe without shearing constraints</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img src="part1_only_shearing.png" width="400px"/>
+						<figcaption>Cloth wireframe with only shearing constraints</figcaption>
+					</td>
 
-						<td colspan="2" style="text-align: center;">
-							<img src="part1_all_constraints.png" width="400px"/>
-							<figcaption>Cloth wireframe with all constraints (structural, shearing, and bending)</figcaption>
-						</td>
-					</tr>
-				</table>
-			</div>
+					<td colspan="2">
+						<img src="part1_all_constraints.png" width="400px"/>
+						<figcaption>Cloth wireframe with all constraints (structural, shearing, and bending)</figcaption>
+					</td>
+				</tr>
+			</table>
 
 			<!-- Part 2 -->
 			<h2>Part 2: Simulation Parameters</h2>
@@ -182,20 +180,18 @@
 				It maintains its shape better, shows less stretching, and settles quickly with minimal deformation.
 			</p>
 
-			<div style="display: flex; flex-direction: column; align-items: center;">
-				<table style="width: 100%; text-align: center; border-collapse: collapse;">
-					<tr>
-						<td style="text-align: center;">
-							<img src="part2_low_ks.png" width="400px"/>
-							<figcaption>Low spring constant (ks = 10)</figcaption>
-						</td>
-						<td style="text-align: center;">
-							<img src="part2_high_ks.png" width="400px"/>
-							<figcaption>High spring constant (ks = 100000)</figcaption>
-						</td>
-					</tr>
-				</table>
-			</div>
+			<table>
+				<tr>
+					<td>
+						<img src="part2_low_ks.png" width="400px"/>
+						<figcaption>Low spring constant (ks = 10)</figcaption>
+					</td>
+					<td>
+						<img src="part2_high_ks.png" width="400px"/>
+						<figcaption>High spring constant (ks = 100000)</figcaption>
+					</td>
+				</tr>
+			</table>
 
 			<h3>Density</h3>
 			<p>
@@ -206,20 +202,18 @@
 				creates more pronounced folds, and is more resistant to movement once settled.
 			</p>
 
-			<div style="display: flex; flex-direction: column; align-items: center;">
-				<table style="width: 100%; text-align: center; border-collapse: collapse;">
-					<tr>
-						<td style="text-align: center;">
-							<img src="part2_low_density.png" width="400px"/>
-							<figcaption>Low density (density = 5) - Lightweight behavior with gentle folds</figcaption>
-						</td>
-						<td style="text-align: center;">
-							<img src="part2_high_density.png" width="400px"/>
-							<figcaption>High density (density = 1000) - Heavy behavior with pronounced draping</figcaption>
-						</td>
-					</tr>
-				</table>
-			</div>
+			<table>
+				<tr>
+					<td>
+						<img src="part2_low_density.png" width="400px"/>
+						<figcaption>Low density (density = 5) - Lightweight behavior with gentle folds</figcaption>
+					</td>
+					<td>
+						<img src="part2_high_density.png" width="400px"/>
+						<figcaption>High density (density = 1000) - Heavy behavior with pronounced draping</figcaption>
+					</td>
+				</tr>
+			</table>
 
 			<h3>Damping</h3>
 			<p>
@@ -236,7 +230,7 @@
 			</p>
 
 			<figure>
-				<img src="part2_final_rest.png" alt="Final resting state of cloth" style="width:70%"/>
+				<img src="part2_final_rest.png" alt="Final resting state of cloth" width="70%"/>
 			</figure>
 
 			<!-- Part 3 -->
@@ -270,26 +264,24 @@
 				results with three different spring constants:
 			</p>
 
-			<div style="display: flex; flex-direction: column; align-items: center;">
-				<table style="width: 100%; text-align: center; border-collapse: collapse;">
-					<tr>
-						<td style="text-align: center;">
-							<img src="part3_ks500_sphere.png" width="400px"/>
-							<figcaption>Low spring constant (ks = 500)</figcaption>
-						</td>
-						<td style="text-align: center;">
-							<img src="part3_ks5000_sphere.png" width="400px"/>
-							<figcaption>Default spring constant (ks = 5000)</figcaption>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2" style="text-align: center;">
-							<img src="part3_ks50000_sphere.png" width="400px"/>
-							<figcaption>High spring constant (ks = 50000)</figcaption>
-						</td>
-					</tr>
-				</table>
-			</div>
+			<table>
+				<tr>
+					<td>
+						<img src="part3_ks500_sphere.png" width="400px"/>
+						<figcaption>Low spring constant (ks = 500)</figcaption>
+					</td>
+					<td>
+						<img src="part3_ks5000_sphere.png" width="400px"/>
+						<figcaption>Default spring constant (ks = 5000)</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<img src="part3_ks50000_sphere.png" width="400px"/>
+						<figcaption>High spring constant (ks = 50000)</figcaption>
+					</td>
+				</tr>
+			</table>
 			
 			<p>
 				With a low spring constant (ks = 500), the cloth is very soft and drapes closely around the sphere, 
@@ -314,9 +306,116 @@
 			</p>
 
 			<figure>
-				<img src="part3_plane_rest.png" alt="Cloth at rest on a plane" style="width:70%"/>
+				<img src="part3_plane_rest.png" alt="Cloth at rest on a plane" width="70%"/>
 				<figcaption>Cloth peacefully at rest on a plane with custom coloring</figcaption>
 			</figure>
+
+			<!-- Part 4 -->
+			<h2>Part 4: Self-Collisions</h2>
+			<p>
+				In this part, I implemented self-collision detection and resolution for the cloth simulation. This allows the cloth 
+				to interact with itself realistically when it folds, preventing different parts of the cloth from 
+				passing through each other.
+			</p>
+			
+			<h3>Self-Collision Implementation</h3>
+			<p>
+				My implementation uses spatial hashing to efficiently detect potential collisions between point masses. The system
+				divides 3D space into grid cells and maps each point mass to a cell based on its position.
+			</p>
+			
+			<p>
+				The implementation consists of three main components:
+			</p>
+			<ul>
+				<li>A hash function that maps a 3D position to a unique identifier representing a specific grid cell</li>
+				<li>A spatial map that stores point masses organized by their grid cell</li>
+				<li>A collision resolution function that detects when point masses are too close and calculates correction vectors</li>
+			</ul>
+			
+			<p>
+				When point masses come within twice the cloth thickness of each other, a correction force is applied to push them apart.
+				This ensures that the cloth maintains a minimum separation distance between different layers, creating realistic folds
+				and preventing interpenetration.
+			</p>
+			
+			<h3>Cloth Self-Collision Sequence</h3>
+			<p>
+				Below is a sequence showing how the cloth folds and collides with itself as it falls:
+			</p>
+			
+			<table>
+				<tr>
+					<td>
+						<img src="part4_self_collision_early.png" width="400px"/>
+						<figcaption>Early stage: Initial self-collision as the cloth begins to fold</figcaption>
+					</td>
+					<td>
+						<img src="part4_self_collision_mid.png" width="400px"/>
+						<figcaption>Middle stage: Multiple folds forming as the cloth continues to fall</figcaption>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<img src="part4_self_collision_rest.png" width="400px"/>
+						<figcaption>Final stage: Cloth at relative rest with complex folds formed by self-collisions</figcaption>
+					</td>
+				</tr>
+			</table>
+			
+			<h3>Effect of Varying Parameters on Self-Collisions</h3>
+			<p>
+				The simulation parameters significantly affect how the cloth behaves when colliding with itself:
+			</p>
+			
+			<h4>Varying Spring Constant (ks)</h4>
+			<table>
+				<tr>
+					<td>
+						<img src="part4_low_ks_self.png" width="400px"/>
+						<figcaption>Low spring constant (ks = 500)</figcaption>
+					</td>
+					<td>
+						<img src="part4_high_ks_self.png" width="400px"/>
+						<figcaption>High spring constant (ks = 50000)</figcaption>
+					</td>
+				</tr>
+			</table>
+			
+			<p>
+				With a low spring constant (ks = 500), the cloth creates many small, detailed folds when it collides with itself. 
+				The fabric appears more fluid-like. 
+			</p>
+			
+			<p>
+				With a high spring constant (ks = 50000), the cloth forms fewer, larger folds. It maintains its shape much more rigidly, 
+				creating tent-like structures.
+			</p>
+			
+			<h4>Varying Density</h4>
+			<table>
+				<tr>
+					<td>
+						<img src="part4_low_density_self.png" width="400px"/>
+						<figcaption>Low density (density = 5)</figcaption>
+					</td>
+					<td>
+						<img src="part4_high_density_self.png" width="400px"/>
+						<figcaption>High density (density = 100)</figcaption>
+					</td>
+				</tr>
+			</table>
+			
+
+			<p>
+				With low density (5), the cloth falls slowly and makes soft, wide folds that spread out more on the ground. It looks puffy and takes up more space, like a light scarf.
+			</p>
+			
+			<p>
+				With high density (100), the cloth falls quickly and makes tight, narrow folds that stay closer together. It makes a smaller, more compact pile with sharper creases, like a heavy blanket.
+			</p>
+
+			<!-- End -->
 		</div>
 	</body>
 </html>
